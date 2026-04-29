@@ -1,17 +1,10 @@
 {
   "version": 2,
   "functions": {
-    "api/stripe-webhook.js": {
-      "bodyParser": false
-    },
-    "api/abandoned-cart-check.js": {
-      "maxDuration": 60
-    }
+    "api/stripe-webhook.js": { "bodyParser": false },
+    "api/abandoned-cart-check.js": { "maxDuration": 60 }
   },
   "crons": [
-    {
-      "path": "/api/abandoned-cart-check",
-      "schedule": "0 * * * *"
-    }
+    { "path": "/api/abandoned-cart-check", "schedule": "0 * * * *" }
   ]
 }
