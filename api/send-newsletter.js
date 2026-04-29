@@ -1,0 +1,22 @@
+/**
+ * Sterling Berry — send-newsletter.js
+ * Vercel Serverless Function
+ */
+const { Resend } = require('resend');
+export default async function handler(req, res) {
+  if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
+  let body; try { body = req.body; } catch { return res.status(400).json({ error: 'Invalid JSON' }); }
+  if (!process.env.RESEND_API_KEY) return res.status(200).json({ ok: true, sent: 0, demo: true });
+  const { subject, html, recipients = [] } = body;
+  if (!subject || !html || !recipients.length) return res.status(400).json({ error: 'subject, html, recipients required' });
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev';
+  let sent = 0, failed = 0;
+  for (const recipient of recipients) {
+    const personalised = html.replace(/Tea Lover/g, recipient.firstName || 'Tea Lover');
+    try { await resend.emails.send({ from: `Sterling Berry <${fromEmail}>`, to: [recipient.email], subject, html: personalised }); sent++; }
+    catch (err) { failed++; }
+    await new Promise(r => setTimeout(r, 15));
+  }
+  return res.status(200).json({ ok: true, sent, failed });
+}
