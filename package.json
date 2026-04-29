@@ -1,0 +1,15 @@
+{
+  "name": "sterling-berry",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sterling Berry Herbs & Teas — Vercel deployment",
+  "dependencies": {
+    "stripe": "^14.0.0",
+    "resend": "^3.0.0",
+    "@supabase/supabase-js": "^2.0.0",
+    "micro": "^10.0.1"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}

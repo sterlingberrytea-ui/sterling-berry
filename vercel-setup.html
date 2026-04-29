@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vercel Setup | Sterling Berry</title>
+  <meta name="robots" content="noindex"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bark:#5c3d2e;--gold:#b8935a;--deep-sage:#4a6651;--cream:#f9f5ef;--border:#e0d8cc;--muted:#8a8178}
+    body{font-family:'Jost',sans-serif;background:var(--cream);color:#2c2c2c;line-height:1.7}
+    .wrap{max-width:820px;margin:0 auto;padding:4rem 2rem}
+    h1{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--bark);margin-bottom:0.5rem}
+    h1 em{font-style:italic;color:var(--deep-sage)}
+    .subtitle{font-size:0.95rem;color:var(--muted);font-weight:300;margin-bottom:3rem}
+    .step{background:#fff;border:1px solid var(--border);padding:2rem;margin-bottom:1.5rem;position:relative}
+    .step-num{position:absolute;top:-14px;left:1.5rem;background:var(--bark);color:#fff;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.2rem 0.8rem}
+    .step h2{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--bark);margin-bottom:0.6rem}
+    .step p,.step li{font-size:0.88rem;color:#5a4f47;font-weight:300;margin-bottom:0.5rem}
+    .step ul,.step ol{margin-left:1.5rem}
+    .step a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,147,90,0.3)}
+    code{font-family:'Courier New',monospace;background:#f0ebe4;padding:0.1rem 0.4rem;font-size:0.82rem;border-radius:2px;color:var(--bark)}
+    pre{background:#1e1812;color:#e8dfd5;border-radius:4px;padding:1.5rem;font-family:'Courier New',monospace;font-size:0.82rem;overflow-x:auto;line-height:1.6;margin:1rem 0;position:relative}
+    .copy-btn{position:absolute;top:0.8rem;right:0.8rem;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);border:none;padding:0.3rem 0.7rem;font-size:0.68rem;cursor:pointer;font-family:'Jost',sans-serif;letter-spacing:0.1em;text-transform:uppercase}
+    .copy-btn:hover{background:rgba(255,255,255,0.2);color:#fff}
+    .note{background:rgba(74,102,81,0.08);border-left:3px solid var(--deep-sage);padding:0.8rem 1.2rem;margin:1rem 0;font-size:0.82rem;color:#3a5040}
+    .warn{background:rgba(184,147,90,0.08);border-left:3px solid var(--gold);padding:0.8rem 1.2rem;margin:1rem 0;font-size:0.82rem;color:#6b4f20}
+    .env-table{width:100%;border-collapse:collapse;font-size:0.82rem;margin:1rem 0}
+    .env-table th{background:#f0ebe4;padding:0.5rem 0.8rem;text-align:left;color:var(--bark);border-bottom:1px solid var(--border)}
+    .env-table td{padding:0.5rem 0.8rem;border-bottom:1px solid rgba(224,216,204,0.5);color:#5a4f47;font-weight:300}
+    .env-table td:first-child{font-family:'Courier New',monospace;font-size:0.78rem;color:var(--bark)}
+    .success-box{background:rgba(39,174,96,0.08);border:1px solid rgba(39,174,96,0.3);padding:2rem;text-align:center;margin-top:3rem}
+    .success-box h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--deep-sage);margin-bottom:0.5rem;font-weight:400}
+    .success-box p{font-size:0.85rem;color:var(--muted);font-weight:300;margin-top:0.5rem}
+    .btn{display:inline-block;text-decoration:none;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.9rem 2rem;margin:0.4rem;background:var(--bark);color:#fff;border:none;cursor:pointer;font-family:'Jost',sans-serif}
+    .btn-outline{background:none;border:1px solid var(--bark);color:var(--bark)}
+    .diff{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+    .diff-col h4{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.5rem}
+    .diff-col.old h4{color:#c0392b}
+    .diff-col.new h4{color:var(--deep-sage)}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Switch to <em>Vercel</em></h1>
+  <p class="subtitle">Move Sterling Berry from Netlify to Vercel in about 10 minutes. All functions have been pre-converted.</p>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-num">Step 1</div>
+    <h2>Create a Free Vercel Account</h2>
+    <ol>
+      <li>Go to <a href="https://vercel.com" target="_blank">vercel.com</a> → Sign up with GitHub (recommended) or email</li>
+      <li>Free "Hobby" plan includes: unlimited sites, 100GB bandwidth, 100k function invocations/month, custom domain</li>
+    </ol>
+    <div class="note">Vercel's free tier is more generous than Netlify's for serverless functions.</div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="step-num">Step 2</div>
+    <h2>Upload Your Files</h2>
+    <p>You have two options:</p>
+    <p><strong>Option A — GitHub (recommended for ongoing updates):</strong></p>
+    <ol>
+      <li>Create a new repo at <a href="https://github.com/new" target="_blank">github.com/new</a></li>
+      <li>Upload all your site files — HTML, CSS, JS, the <code>api/</code> folder, <code>vercel.json</code>, <code>package.json</code></li>
+      <li>In Vercel → New Project → Import Git Repository → select your repo</li>
+      <li>Vercel auto-deploys on every push — no manual uploads needed going forward</li>
+    </ol>
+    <p style="margin-top:1rem;"><strong>Option B — Drag & Drop:</strong></p>
+    <ol>
+      <li>In Vercel dashboard → New Project → select "Deploy from file system"</li>
+      <li>Zip your entire site folder and drag it in</li>
+    </ol>
+    <div class="warn">Make sure your folder structure is: <code>api/</code> at the root (NOT inside <code>netlify/functions/</code>). The <code>vercel.json</code> must be at the root too.</div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-num">Step 3</div>
+    <h2>Set Environment Variables</h2>
+    <p>In Vercel → Project Settings → Environment Variables, add these (same values as Netlify):</p>
+    <table class="env-table">
+      <thead><tr><th>Variable</th><th>Value</th><th>Used by</th></tr></thead>
+      <tbody>
+        <tr><td>STRIPE_SECRET_KEY</td><td>sk_live_xxx or sk_test_xxx</td><td>Checkout, subscriptions, webhooks</td></tr>
+        <tr><td>STRIPE_WEBHOOK_SECRET</td><td>whsec_xxx</td><td>stripe-webhook.js</td></tr>
+        <tr><td>RESEND_API_KEY</td><td>re_xxx</td><td>All email functions</td></tr>
+        <tr><td>FROM_EMAIL</td><td>orders@sterlingberry.com</td><td>All email functions</td></tr>
+        <tr><td>OWNER_EMAIL</td><td>sterlingberrytea@gmail.com</td><td>Order & contact alerts</td></tr>
+        <tr><td>SITE_URL</td><td>https://sterlingberry.com</td><td>Email links, redirects</td></tr>
+        <tr><td>SUPABASE_URL</td><td>https://xxx.supabase.co</td><td>Database (optional)</td></tr>
+        <tr><td>SUPABASE_SERVICE_KEY</td><td>eyJxxx</td><td>Database (optional)</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Set each variable for <strong>Production</strong>, <strong>Preview</strong>, and <strong>Development</strong> environments.</div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="step-num">Step 4</div>
+    <h2>Update Stripe Webhook URL</h2>
+    <ol>
+      <li>In Stripe Dashboard → Developers → Webhooks → your endpoint</li>
+      <li>Change the URL from <code>https://your-site.netlify.app/api/stripe-webhook</code> to <code>https://your-site.vercel.app/api/stripe-webhook</code></li>
+      <li>Copy the new webhook signing secret → update <code>STRIPE_WEBHOOK_SECRET</code> in Vercel</li>
+    </ol>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step">
+    <div class="step-num">Step 5</div>
+    <h2>Add Your Custom Domain</h2>
+    <ol>
+      <li>Vercel → Project → Settings → Domains → Add <code>sterlingberry.com</code></li>
+      <li>Vercel shows you DNS records to add at your domain registrar (usually just 2 records)</li>
+      <li>SSL certificate is automatically provisioned — usually live within 5 minutes</li>
+    </ol>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step">
+    <div class="step-num">Step 6</div>
+    <h2>What Changed (Function Syntax)</h2>
+    <p>Your functions were auto-converted. Here's the difference for reference:</p>
+    <div class="diff">
+      <div class="diff-col old">
+        <h4>Netlify (old)</h4>
+        <pre>exports.handler = async (event) => {
+  const body = JSON.parse(event.body);
+  if (event.httpMethod !== 'POST')
+    return { statusCode: 405,
+             body: 'Not allowed' };
+  return { statusCode: 200,
+           body: JSON.stringify({ok:true}) };
+}</pre>
+      </div>
+      <div class="diff-col new">
+        <h4>Vercel (new)</h4>
+        <pre>export default async function handler(req, res) {
+  const body = req.body; // auto-parsed
+  if (req.method !== 'POST')
+    return res.status(405).send('Not allowed');
+  return res.status(200).json({ ok: true });
+}</pre>
+      </div>
+    </div>
+    <div class="note">All 13 functions have been converted and are in the <code>api/</code> folder ready to deploy.</div>
+  </div>
+
+  <div class="success-box">
+    <div style="font-size:2.5rem;margin-bottom:1rem;">▲</div>
+    <h3>Ready to Deploy on Vercel</h3>
+    <p>Your site files are converted. Upload the <code>api/</code> folder, <code>vercel.json</code>, and <code>package.json</code> alongside your HTML files.</p>
+    <a href="https://vercel.com/new" target="_blank" class="btn">Deploy to Vercel →</a>
+    <a href="admin.html" class="btn btn-outline">Back to Admin</a>
+  </div>
+</div>
+<script>
+document.querySelectorAll('pre').forEach(pre => {
+  const btn = document.createElement('button');
+  btn.className = 'copy-btn';
+  btn.textContent = 'Copy';
+  btn.onclick = () => {
+    const text = pre.textContent.replace('Copy','').trim();
+    navigator.clipboard.writeText(text).then(() => { btn.textContent = '✓ Copied!'; setTimeout(()=>btn.textContent='Copy',2000); });
+  };
+  pre.style.position = 'relative';
+  pre.appendChild(btn);
+});
+</script>
+</body>
+</html>
