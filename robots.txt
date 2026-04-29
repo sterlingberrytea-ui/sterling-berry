@@ -1,0 +1,29 @@
+# Sterling Berry Herbs & Teas — robots.txt
+# https://sterlingberry.com
+
+User-agent: *
+
+# Allow all public pages
+Allow: /
+
+# Block private / transactional pages — no SEO value
+Disallow: /admin.html
+Disallow: /admin
+Disallow: /checkout.html
+Disallow: /success.html
+Disallow: /supabase-setup.html
+Disallow: /stripe-setup.html
+Disallow: /email-setup.html
+
+# Block Netlify functions from being crawled
+Disallow: /.netlify/
+
+# Block URL parameters that create duplicate content
+# (blog posts use ?id= params — see netlify.toml for clean URL redirects)
+Disallow: /blog-post.html?*
+
+# Sitemap location
+Sitemap: https://sterlingberry.com/sitemap.xml
+
+# Crawl-delay for polite bots (optional)
+Crawl-delay: 1
