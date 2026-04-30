@@ -36,9 +36,9 @@ export default async function handler(req, res) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         id:              session.id,
-        payment_status:  session.payment_status,
+        payment_status:  session.payment_status,  // 'paid' | 'unpaid' | 'no_payment_required'
         customer_email:  session.customer_email,
-        amount_total:    session.amount_total,
+        amount_total:    session.amount_total,     // in cents
         currency:        session.currency,
         metadata:        session.metadata,
         line_items:      (session.line_items?.data || []).map(li => ({
