@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="content.js"></script>
+<script src="seo.js"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Order Confirmed | Sterling Berry Herbs & Teas</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --cream: #f9f5ef; --bark: #5c3d2e; --gold: #b8935a; --deep-sage: #4a6651; --muted: #8a8178; --border: #e0d8cc; --warm-white: #fdfaf5; }
+body { font-family: Jost,sans-serif; background: var(--cream); color: #2c2c2c; min-height: 100vh; display: flex; flex-direction: column; }
+.page-body { flex: 1; display: flex; align-items: center; justify-content: center; padding: 6rem 2rem 4rem; }
+.spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1.5rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.success-wrap { max-width: 580px; width: 100%; }
+.success-icon { font-size: 4rem; margin-bottom: 1.5rem; display: block; }
+.success-wrap h1 { font-family: Georgia,serif; font-size: clamp(2rem,4vw,3rem); font-weight: 300; color: var(--bark); margin-bottom: 0.5rem; }
+.order-num { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; }
+.btn { display: inline-block; text-decoration: none; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2rem; font-weight: 400; transition: all 0.3s; }
+.btn-primary { background: var(--bark); color: #fff; }
+.btn-outline { border: 1px solid var(--bark); color: var(--bark); }
+</s:style>
+</head>
+<body>
+<div class="page-body">
+<div id="loading-state" style="text-align:center;"><div class="spinner"></div><p>Confirming your order&hellip;</p></div>
+<div class="success-wrap" id="success-state" style="display:none;">
+<span class="success-icon">🎉</span>
+<h1>Thank You for Your Order!</h1>
+<div class="order-num" id="order-num-display">Order #—</div>
+<div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:25px;">
+<a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+<a href="index.html" class="btn btn-outline">Back to Home</a>
+</div>
+</div>
+<div class="error-wrap" id="error-state" style="display:none;text-align:center;">
+<h1>Something Went Wrong</h1>
+<p id="error-msg">We couldn't confirm your payment.</p>
+<a href="checkout.html" class="btn btn-primary">Try Again</a>
+</div>
+</div>
+<script src="nav.js"></script>
+<script>
+(function() {
+const params = new URLSearchParams(window.location.search);
+const sid = params.get('session_id');
+const onum = localStorage.getItem('sb_pending_order')||'—';
+function showSuccess(d) {
+document.getElementById('loading-state').style.display='none';
+document.getElementById('success-state').style.display='block';
+document.getElementById('order-num-display').textContent='Order #'+(d.metadata?.order_id||onum);
+localStorage.removeItem('sb_cart');localStorage.removeItem('sb_pending_order');
+}
+function showError(m) {
+document.getElementById('loading-state').style.display='none';
+document.getElementById('error-state').style.display='block';
+if(m)document.getElementById('error-msg').textContent=m;
+}
+if(!sid){showError('No payment session found.');return;}
+fetch('/api/get-session?session_id='+encodeURIComponent(sid))
+.then(r=>r.json())
+.then(d=>{
+if(d.error){showError(d.error);return;}
+if(d.payment_status!=='paid'){showError('Payment not completed.');return;}
+showSuccess(d);
+}).catch(()=>showSuccess({metadata:{oorder_id:onum}}));
+})();
+</script>
+</body></html>
