@@ -4,26 +4,6 @@
  * Route: /api/subscription-portal
  */
 
-/**
- * Sterling Berry — Stripe Customer Portal
- * POST /api/subscription-portal
- *
- * Creates a Stripe Billing Portal session so customers can:
- *   • Cancel their subscription
- *   • Update payment method
- *   • Change frequency / quantity
- *   • Download invoices
- *
- * Body: { email: "customer@example.com" }
- * Returns: { url }
- *
- * Required env vars:
- *   STRIPE_SECRET_KEY
- *   SITE_URL
- */
-
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
 export default async function handler(req, res) {
 
   if (req.method !== 'POST') {
@@ -34,6 +14,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ url: '/subscriptions.html', demo: true });
   }
 
+  const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
   let body;
   try { body = req.body; }
   catch { return res.status(400).send('Invalid JSON'); }
@@ -44,31 +25,11 @@ export default async function handler(req, res) {
   const siteUrl = process.env.SITE_URL || 'https://sterlingberry.com';
 
   try {
-    /* Find Stripe customer by email */
     const customers = await stripe.customers.list({ email: email.toLowerCase(), limit: 1 });
-    if (!customers.data.length) {
-      return res.status(404).json({ error: 'No subscription found for this email address.' });
-    }
-
-    const session = await stripe.billingPortal.sessions.create({
-      customer:   customers.data[0].id,
-      return_url: `${siteUrl}/subscriptions.html`,
-    });
-
+    if (!customers.data.length) return res.status(404).json({ error: 'No subscription found for this email.' });
+    const session = await stripe.billingPortal.sessions.create({ customer: customers.data[0].id, return_url: `${siteUrl}/subscriptions.html` });
     return res.status(200).json({ url: session.url });
-
   } catch (err) {
-    console.error('[subscription-portal] error:', err.message);
     return res.status(500).json({ error: err.message });
   }
-
-}
-;
-
-function json(status, data) {
-  return {
-    statusCode: status,
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  };
 }
