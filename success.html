@@ -6,5 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Order Confirmed | Sterling Berry Herbs & Teas</title>
   <script src="seo.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="db.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="mobile.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+</style>
 </head>
-<body><script src="nav.js"></script><p>Order confirmed page</p></body></html>
+<body>
+<div class="page-body"><p id="loading-state">Confirming your order...</p><p id="success-state" style="display:none">Thank You!\n<div id="order-num-display"></div><div id="order-detail-card"><div id="order-lines"></div><span id="order-total-display"></span></div></p><p id="error-state" style="display:none"><span id="error-msg"></span></p></div><script src="nav.js"></script>
+<script>
+(async function(){
+const p = new URLSearchParams(window.location.search);
+const sid = p.get('session_id');
+if(!sid){ document.getElementById('loading-state').style.display='none'; document.getElementById('error-state').style.display=''; document.getElementById('error-msg').textContent='No payment session found.'; return; }
+try{ const r=await fetch('/api/get-session?session_id='+sid); const d=await r.json();
+  document.getElementById('loading-state').style.display='none';
+  document.getElementById('success-state').style.display='';
+  document.getElementById('order-num-display').textContent='Order #'+(d.metadata?.order_id||'');
+  document.getElementById('order-total-display').textContent='$'+((d.amount_total||0)/100).toFixed(2);
+  localStorage.removeItem('sb_cart');
+}catch(e){ document.getElementById('loading-state').style.display='none'; document.getElementById('success-state').style.display=''; }
+})();
+</script>
+</script></body></html>
