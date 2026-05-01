@@ -1,41 +1,22 @@
-/* Sterling Berry Mobile Responsive Styles */
-@media (max-width: 860px) {
-  html { font-size: 15px; }
-  .container { padding: 0 1.5rem !important; }
-  section { padding: 4rem 0 !important; }
-  .footer-inner { grid-template-columns: 1fr !important; text-align: center !important; }
-  footer { padding: 2.5rem 1.5rem !important; }
-  .page-header { padding: 100px 1.5rem 3rem !important; }
-  .hero { grid-template-columns: 1fr !important; min-height: auto !important; }
-  .hero-text { padding: 3rem 1.5rem 2.5rem !important; order: 1; }
-  .hero-image { height: 55vw !important; min-height: 240px !important; order: 0; }
-  .hero-badge { display: none; }
-  .hero-actions { flex-direction: column; gap: 0.8rem; }
-  .collections-grid { grid-template-columns: 1fr !important; }
-  .shop-wrap { grid-template-columns: 1fr !important; padding: 1.5rem !important; }
-  .sidebar-sticky { position: static !important; }
-  .cat-list { display: flex !important; flex-wrap: wrap !important; }
-  .cat-list a { border-left: none !important; border: 1px solid var(--border) !important; padding: 0.35rem 0.9rem !important; }
-  .product-grid { grid-template-columns: repeat(2,1fr) !important; }
-  .gift-hero { grid-template-columns: 1fr !important; }
-  .gift-grid { grid-template-columns: 1fr !important; }
-  .contact-wrap { grid-template-columns: 1fr !important; }
-  .checkout-wrap { grid-template-columns: 1fr !important; padding: 1.5rem !important; }
-  .order-summary { position: static !important; order: -1 !important; }
-  .form-row { grid-template-columns: 1fr !important; }
-  .featured-post { grid-template-columns: 1fr !important; }
-  .posts-grid { grid-template-columns: 1fr !important; }
-  .article-wrap { grid-template-columns: 1fr !important; }
-  .article-sidebar { position: static !important; order: 1; }
-  .btn { padding: 0.85rem 1.8rem !important; display: block; text-align: center; }
-  .stats-grid { grid-template-columns: 1fr 1fr !important; }
-  .nl-inner { grid-template-columns: 1fr !important; }
+/* Sterling Berry Mobile Styles */
+@media(max-width:860px){
+  html{font-size:15px}
+  .container{padding:0 1.5rem!important}
+  section{padding:4rem 0!important}
+  .footer-inner{grid-template-columns:1fr!important;text-align:center! important}
+  .hero{grid-template-columns:1fr!important;min-height:auto!important}
+  .hero-text{padding:3rem 1.5rem!;order:1}
+  .hero-image{height:55vw!important;order:0}
+  .hero-badge{display:none}
+  .shop-wrap{grid-template-columns:1fr!important}
+  .product-grid{grid-template-columns:repeat(2,1fr)! important}
+  .checkout-wra{grid-template-columns:1fr!important}
+  .blog-wrap{padding:2 rem 1.5rem!important}
+  .featured-post{grid-template-columns:1fr!important}
+  .article-wrap{grid-template-columns:1fr! important}
+  .btn{padding:.85rem 1.8rem!important}
 }
-@media (max-width: 480px) {
-  .product-grid { grid-template-columns: 1fr !important; }
-  .stats-grid { grid-template-columns: 1fr 1fr !important; }
-}
-@media (max-width: 380px) {
-  .page-header h1 { font-size: 1.8rem !important; }
-  .newsletter-form { flex-direction: column !important; }
+@media(max-width:480px){
+  .product-grid{grid-template-columns:1fr!important}
+  .stats-grid{grid-template-columns:1fr 1fr!important}
 }
