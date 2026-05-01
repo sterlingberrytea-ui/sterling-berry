@@ -1,6 +1,5 @@
 /**
- * Sterling Berry — newsletter-subscribe.js
- * Vercel Serverless Function
+ * Sterling Berry — newsletter-subscribe.js (Vercel)
  */
 const { Resend } = require('resend');
 export default async function handler(req, res) {
@@ -13,7 +12,7 @@ export default async function handler(req, res) {
   const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev';
   const siteUrl = process.env.SITE_URL || 'https://sterlingberry.com';
   try {
-    await resend.emails.send({ from: `Sterling Berry <${fromEmail}>`, to: [email], subject: `Welcome to the Sterling Berry Tea Circle 🌿`, html: `<h1>Hi ${firstName}!</h1><p>You're in! <a href="${siteUrl}/shop.html">Shop our teas</a>.</p>` });
+    await resend.emails.send({ from: `Sterling Berry <${fromEmail}>`, to: [email], subject: `Welcome to the Sterling Berry Tea Circle 🌿`, html: `<h1>Hi ${firstName}!</h1><p>You're in! Visit us at <a href="${siteUrl}/shop.html">${siteUrl}</a></p>` });
     return res.status(200).json({ ok: true });
-  } catch (err) { return res.status(500).json({ error: err.message }); }
+  } catch(err) { return res.status(500).json({ error: err.message }); }
 }
