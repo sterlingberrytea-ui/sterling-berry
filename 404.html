@@ -7,13 +7,13 @@
   <title>Page Not Found | Sterling Berry Herbs & Teas</title>
   <meta name="robots" content="noindex"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box; margin: 0; padding: 0;
+    }
     :root { --cream: #f9f5ef; --bark: #5c3d2e; --gold: #b8935a; --deep-sage: #4a6651; --muted: #8a8178; --border: #e0d8cc; }
-    body { font-family: Jost,sans-serif; background: var(--cream); color: var(--bark); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
-    .num { font-family: Georgia,serif; font-size: clamp(6rem,20vw,12rem); font-weight: 300; color: rgba(92,61,46,0.08); line-height: 1; margin-bottom: -1rem; }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--bark); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
     .icon { font-size: 3.5rem; margin-bottom: 1.5rem; }
-    h1 { font-family: Georgia,serif; font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 300; margin-bottom: 0.8rem; }
-    h1 em { font-style: italic; color: var(--deep-sage); }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 300; margin-bottom: 0.8rem; }
     p { font-size: 0.92rem; color: var(--muted); font-weight: 300; line-height: 1.8; max-width: 420px; margin: 0 auto 2rem; }
     .links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
     .btn { display: inline-block; text-decoration: none; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2rem; font-weight: 400; transition: all 0.3s; }
@@ -22,10 +22,9 @@
   </style>
 </head>
 <body>
-  <div class="num">404</div>
   <div class="icon">🍵</div>
-  <h1>Oops — <em>Page Not Found</em></h1>
-  <p>The page you're looking for seems to have steeped a little too long and disappeared. Let's get you back on track.</p>
+  <h1>Oops — Page Not Found</h1>
+  <p>The page you're looking for seems to have steeped a little too long and disappeared.</p>
   <div class="links">
     <a href="/" class="btn btn-primary">Go Home</a>
     <a href="/shop.html" class="btn btn-outline">Shop All Teas</a>
