@@ -2,33 +2,96 @@
 <html lang="en">
 <head>
   <script src="content.js"></script>
+  <script src="seo.js"></script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Order Confirmed | Sterling Berry Herbs & Teas</title>
-  <script src="seo.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="supabase-config.js"></script>
-  <script src="db.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <meta name="robots" content="noindex"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;40;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="mobile.css"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-</style>
+    :root { --cream: #f9f5ef; --bark: #5c3d2e; --gold: #b8935a; --deep-sage: #4a6651; --muted: #8a8178; --border: #e0d8cc; }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--bark); padding-top: 80px; }
+    .success-wrap { max-width: 700px; margin: 4rem auto; text-align: center; padding: 3rem 2rem; }
+    .success-icon { font-size: 4rem; margin-bottom: 1.5rem; }
+    .success-wrap h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; margin-bottom: 0.5rem; }
+    .order-id { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; }
+    .order-summary { background: #fff; padding: 2rem; text-align: left; margin-bottom: 2rem; }
+    .order-line { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    .order-line:last-child { border-bottom: none; font-weight: 500; }
+    .success-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
+    .btn { display: inline-block; text-decoration: none; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2rem; transition: all 0.3s; }
+    .btn-primary { background: var(--bark); color: #fff; }
+    .btn-outline { border: 1px solid var(--bark); color: var(--bark); }
+    .loading { padding: 4rem; color: var(--muted); }
+  </style>
 </head>
 <body>
-<div class="page-body"><p id="loading-state">Confirming your order...</p><p id="success-state" style="display:none">Thank You!\n<div id="order-num-display"></div><div id="order-detail-card"><div id="order-lines"></div><span id="order-total-display"></span></div></p><p id="error-state" style="display:none"><span id="error-msg"></span></p></div><script src="nav.js"></script>
-<script>
-(async function(){
-const p = new URLSearchParams(window.location.search);
-const sid = p.get('session_id');
-if(!sid){ document.getElementById('loading-state').style.display='none'; document.getElementById('error-state').style.display=''; document.getElementById('error-msg').textContent='No payment session found.'; return; }
-try{ const r=await fetch('/api/get-session?session_id='+sid); const d=await r.json();
-  document.getElementById('loading-state').style.display='none';
-  document.getElementById('success-state').style.display='';
-  document.getElementById('order-num-display').textContent='Order #'+(d.metadata?.order_id||'');
-  document.getElementById('order-total-display').textContent='$'+((d.amount_total||0)/100).toFixed(2);
-  localStorage.removeItem('sb_cart');
-}catch(e){ document.getElementById('loading-state').style.display='none'; document.getElementById('success-state').style.display=''; }
-})();
-</script>
-</script></body></html>
+
+  <script src="nav.js"></script>
+
+  <main class="success-wrap" id="success-content">
+    <div class="loading">Loading your order...</div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get('session_id');
+      const content = document.getElementById('success-content');
+
+      if (!sessionId) {
+        content.innerHTML = `
+          <div class="success-icon">🊧</div>
+          <h1>Order Received</h1>
+          <p style="color:var(--muted);margin-bottom:2rem;">Thank you for your purchase! You'll receive a confirmation email shortly.</p>
+          <div class="success-actions">
+            <a href="shop.html" class="btn btn-primary">Shop More Teas</a>
+            <a href="index.html" class="btn btn-outline">Go Home</a>
+          </div>`;
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/get-session?session_id=${sessionId}`);
+        const data = await res.json();
+        if (!data || data.payment_status !== 'paid') {
+          content.innerHTML = `<div class="success-icon">🊧</div><h1>Order Received</h1><p style="color:var(--muted);">Thank you! You'll receive a confirmation email shortly.</p><div class="success-actions"><a href="shop.html" class="btn btn-primary">Shop More Teas</a></div>`;
+          return;
+        }
+
+        const items = (data.line_items || []).map(li =>
+          `<div class="order-line"><span>${li.description} ${li.quantity > 1 ? `x ${li.quantity}` : ''}</span><span>$${(li.amount/100).toFixed(2)}</span></div>`
+        ).join('');
+
+        content.innerHTML = `
+          <div class="success-icon">✓</div>
+          <h1>Order Confirmed!</h1>
+          <p class="order-id">${data.metadata?.order_id || 'ORDER CONFIRMED'}</p>
+          <p style="color:var(--muted);margin-bottom:2rem;font-weight:300;line-height:1.7;">
+            Thank you! A confirmation has been sent to <strong>${data.customer_email}</strong>.
+          </p>
+          <div class="order-summary">
+            ${items}
+            <div class="order-line"><span>Order Total</span><span>$${data.amount_total ? (data.amount_total/100).toFixed(2) : '-'}</span></div>
+          </div>
+          <div class="success-actions">
+            <a href="shop.html" class="btn btn-primary">Shop More Teas</a>
+            <a href="rewards.html" class="btn btn-outline">Join Rewards</a>
+          </div>`;
+
+        // Send confirmation email
+        fetch('/api/send-confirmation', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ sessionId }) }).catch();
+
+        // Clear cart
+        localStorage.removeItem('sb_cart');
+      } catch(e) {
+        content.innerHTML = `<div class="success-icon">🊧</div><h1>Order Received</h1><p style="color:var(--muted);">Thank you! You'll receive a confirmation email shortly.</p><div class="success-actions"><a href="shop.html" class="btn btn-primary">Shop More Teas</a></div>`;
+      }
+    });
+  </script>
+
+  <script src="animations.js"></script>
+</body>
+</html>
