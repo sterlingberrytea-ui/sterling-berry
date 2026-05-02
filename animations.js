@@ -1,26 +1,43 @@
 /**
- * Sterling Berry — Shared Animations
+ * Sterling Berry — Animations
+ * Page fade-in, nav scroll-hide, scroll-reveal, and counter animations.
  */
-(function(){
+(ffunction(){
+  // Fade in page on load
   document.documentElement.style.opacity='0';
-  document.documentElement.style.transition='opacity 0.45s ease';
-  window.addEventListener('load',()=>{requestAnimationFrame(()=>{document.documentElement.style.opacity='1';});});
-  let lastScroll=0,ticking=false;
-  const navHideStyle=document.createElement('style');
-  navHideStyle.textContent='#sb-nav{transition:transform 0.32s ease}#sb-nav.nav-hidden{transform:translateY(-100%)}';
-  document.head.appendChild(navHideStyle);
-  window.addEventListener('scroll',()=>{
-    if(!ticking){requestAnimationFrame(()=>{
-      const cur=window.scrollY; const nav=document.getElementById('sb-nav');
-      if(nav){if(cur>lastScroll&&cur>120)nav.classList.add('nav-hidden');else nav.classList.remove('nav-hidden');}
-      lastScroll=cur<=0?0:cur; ticking=false;
-    });ticking=true;}
+  document.documentElement.style.transition='opacity 0.4s ease';
+  window.addEventListener('load',()=>{
+    requestAnimationFrame(()=>document.documentElement.style.opacity='1');
   });
-  const rs=document.createElement('style');
-  rs.textContent='.sb-reveal{opacity:0;transform:translateY(32px);transition:opacity 0.65s ease,transform 0.65s ease}.sb-reveal.revealed{opacity:1;transform:translateY(0)}.fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}.fade-up.visible{opacity:1;transform:translateY(0)}';
-  document.head.appendChild(rs);
-  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed','visible');obs.unobserve(e.target);}});},{threshold:0.1});
-  document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.sb-reveal,.fade-up').forEach(el=>obs.observe(el));});
-  const cob=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target,t=parseInt(el.dataset.count),dur=1400,st=performance.now();(requestAnimationFrame(function s(now){el.textContent=Math.round(Math.min((now-st)/dur,1)*t);if((now-st)<dur)requestAnimationFrame(s);}));cob.unobserve(el);}});},{threshold:0.5});
-  document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('[data-count]').forEach(el=>cob.observe(el));});
+  // Nav scroll hide/show
+  let lastY=0;
+  window.addEventListener('scroll',()=>{
+    const y=window.scrollY;
+    const nav=document.getElementById('sb-nav');
+    if(nav){
+      if(y>lastY&&y>120)nav.style.transform='translateY(-100%)';
+      else nav.style.transform='';
+    }
+    lastY=y<0?0:y;
+  });
+  // Scroll reveal
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); }
+    });
+  },{threshold:0.1});
+  document.addEventListener('DOMContentLoaded',()=>{
+    document.querySelectorAll('.sb-reveal,.fade-up').forEach(el=>obs.observe(el));
+    // Counter animation
+    document.querySelectorAll('[data-count]').forEach(el=>{
+      new IntersectionObserver(([e])=>{
+        if(e.isIntersecting){
+          const target=parseInt(el.dataset.count)||0;
+          const dur=1400;
+          const start=performance.now();
+          (function step(now){el.textContent=Math.round(Math.min((now-start)/dur,1)*target);if(now-start<dur)requestAnimationFrame(step);})(performance.now());
+        }
+      },{threshold:.5}).observe(el);
+    });
+  });
 })();
