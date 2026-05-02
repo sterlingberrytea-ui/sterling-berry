@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="content.js"></script>
+  <script src="seo.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tea Subscriptions | Sterling Berry Herbs & Teas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="mobile.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --cream: #f9f5ef; --bark: #5c3d2e; --gold: #b8935a; --deep-sage: #4a6651; --muted: #8a8178; --border: #e0d8cc; }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--bark); }
+    .page-header { background: linear-gradient(135deg,#5c3d2e 0%,#4a6651 100%); padding: 130px 24px 4rem; color: #fff; }
+    .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem,5vw,3rem); font-weight: 300; }
+    .sub-wrap { max-width: 800px; margin: 0 auto; padding: 4rem 24px; }
+    .sub-card { background: #fff; padding: 2rem; margin-bottom: 1.5rem; border-top: 3px solid var(--gold); display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center; }
+    .sub-name { font-size: 1.1rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .sub-price { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold); }
+    .sub-btn { background: var(--bark); color: #fff; border: none; padding: 0.75rem 1.5rem; cursor: pointer; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; }
+    .portal-section { background: #fff; padding: 2rem; margin-top: 3rem; border-top: 3px solid var(--deep-sage); }
+  </style>
+</head>
+<body>
+  <nav id="sb-nav"></nav>
+  <section class="page-header">
+    <div>
+      <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.7;margin-bottom:0.5rem">Subscribe & Save</p>
+      <h1>Tea Subscriptions</h1>
+      <p style="opacity:0.7;font-weight:300;margin-top:0.5rem">Get 15% off with a recurring subscription. Cancel anytime.</p>
+    </div>
+  </section>
+  <section class="sub-wrap">
+    <div class="sub-card"><div><div class="sub-name">Monthly Supply (28g) starting from $3.50/mo</div><p style="font-weight:300;color:#8a8178;font-size:0.88rem">Perfect for daily drinkers who want lose-leaf convenience.</p></div><div><div class="sub-price">from $3.50/mo</div><button class="sub-btn" onclick="subscribeNow('price_monthly_28g')">Subscribe</button></div></div>
+    <div class="sub-card"><div><div class="sub-name">Monthly Supply (57g) starting from $6.50/mo</div><p style="font-weight:300;color:#8a8178;font-size:0.88rem">Popular choice for daily brewers.</p></div><div><div class="sub-price">from $6.50/mo</div><button class="sub-btn" onclick="subscribeNow('price_monthly_57g')">Subscribe</button></div></div>
+    <div class="sub-card"><div><div class="sub-name">Monthly Supply (113g) starting from $11.00/mo</div><p style="font-weight:300;color:#8a8178;font-size:0.88rem">Best value for tea enthusiasts.</p></div><div><div class="sub-price">from $11.00/mo</div><button class="sub-btn" onclick="subscribeNow('price_monthly_113g')">Subscribe</button></div></div>
+    <div class="portal-section">
+      <h3 style="margin-bottom:1rem">Manage Your Subscription</h3>
+      <p style="font-weight:300;font-size:0.9orem;margin-bottom:1rem">Enter your email to access the billing portal.</p>
+      <input type="email" id="portal-email" placeholder="your@email.com" style="padding:0.75rem;border:1px solid #e0d8cc;width:280px;font-family:Jost;font-size:0.9rem;margin-right:1rem"/>
+      <button onclick="openPortal()" style="background:#4a6651;color:#fff;border:none;padding:0.75rem 1.5rem;cursor:pointer;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase">Open Portal</button>
+      <p id="portal-status" style="margin-top:1rem;font-size:0.85rem""></p>
+    </div>
+  </section>
+  <script src="/nav.js"></script>
+  <script>
+    async function subscribeNow(priceId){
+      try{const res=await fetch('/api/create-subscription',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({priceId})});const d=await res.json();if(d.url)window.location.href=d.url;}catch(e){alert('Error connecting to Stripe. Please try again.');}
+    }
+    async function openPortal(){
+      const email=document.getElementById('portal-email').value;
+      const st=document.getElementById('portal-status');
+      if(!email){st.textContent='Please enter your email.';return;}
+      st.textContent='Opening portal...';
+      try{const res=await fetch('/api/subscription-portal',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});const d=await res.json();if(d.url)window.location.href=d.url;else st.textContent='No subscription found for that email.';}catch(e){st.textContent='Error opening portal.';}
+    }
+  </script>
+</body>
+</html>
