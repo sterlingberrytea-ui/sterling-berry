@@ -1,4 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><title>Our Story | Sterling Berry</title></head>
-<body><p>Our story page</p></body></html>
+<head>
+  <script src="content.js"></script>
+  <script src="seo.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Story | Sterling Berry Herbs & Teas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="mobile.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --cream: #f9f5ef; --bark: #5c3d2e; --gold: #b8935a; --deep-sage: #4a6651; --muted: #8a8178; --border: #e0d8cc; }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--bark); }
+    .story-hero { min-height: 60vh; background: linear-gradient(135deg, #5c3d2e 0%, #4a6651 100%); display: flex; align-items: flex-end; padding: 0px 24px 5rem; color: #fff; }
+    .story-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem,5vw,3.5rem); font-weight: 300; }
+    .story-content { max-width: 720px; margin: 0 auto; padding: 5rem 24px; }
+    .story-content p { font-weight: 300; line-height: 1.9; margin-bottom: 1.5rem; }
+    .highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 3rem 0; }
+    .highlight-card { padding: 2rem; background: #fff; border-top: 3px solid var(--gold); }
+    .highlight-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .highlight-card p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+    @media(max-width:720px){.highlights{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <nav id="sb-nav"></nav>
+  <section class="story-hero">
+    <div>
+      <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.7;margin-bottom:0.5rem" data-sb="story.hero.eyebrow">About Us</p>
+      <h1 data-sb="story.hero.heading">Why We Started Sterling Berry</h1>
+    </div>
+  </section>
+  <section class="story-content">
+    <p>Sterling Berry began as a simple idea: what if your everyday cup of tea could be as carefully crafted as a fine espresso? Our family set out to change how people experience tea in Raleigh, NC.</p>
+    <p>We are famous for our signature North Carolina fig leaf infusions — a unique blend that captures the earthy, subtly-sweet essence of locally harvested fig leaves.</p>
+    <div class="highlights">
+      <div class="highlight-card"><h3 data-sb="story.values.v1_title">Quality First</h3><p data-sb="story.values.v1_text">Every blend hand-selected by our family.</p></div>
+      <div class="highlight-card"><h3 data-sb="story.values.v2_title">Local Roots</h3><p data-sb="story.values.v2_text">Proudly serving Raleigh since 2020.</p></div>
+      <div class="highlight-card"><h3 data-sb="story.values.v3_title">Sustainability</h3><p data-sb="story.values.v3_text">Eco-friendly packaging & sourcing.</p></div>
+    </div>
+    <p>Today, Sterling Berry offers over 120 varieties of premium loose leaf teas, herbal blends, and blooming teas from around the world. You can find us at local retail partners in Cary and Apex, or shop online for nationwide shipping.</p>
+  </section>
+  <script src="/nav.js"></script>
+  <script src="/animations.js"></script>
+</body>
+</html>
