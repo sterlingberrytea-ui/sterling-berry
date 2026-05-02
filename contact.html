@@ -7,7 +7,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact Us | Sterling Berry Herbs & Teas</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="mobile.css"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-</style>
-</head><body><p>Contact page</p><script src="nav.js"></script></body></html>
+    :root { --cream: #f9f5ef; --bark: #5c3d2e; --gold: #b8935a; --deep-sage: #4a6651; --muted: #8a8178; --border: #e0d8cc; }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--bark); }
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+    .contact-left { background: var(--bark); color: #fff; padding: 8rem 3rem 4rem; display: flex; flex-direction: column; justify-content: flex-end; }
+    .contact-left h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem,5vw,3.5rem); font-weight: 300; margin-bottom: 1rem; }
+    .contact-right { padding: 8rem 3rem 4rem; }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; color: var(--muted); }
+    .form-group input, .form-group textarea { width: 100%; padding: 0.8rem; border: 1px solid var(--border); background: #fff; font-family: 'Jost'; font-size: 0.9rem; outline: none; }
+    .form-group textarea { height: 120px; resize: vertical; }
+    .submit-btn { background: var(--bark); color: #fff; border: none; padding: 1rem 3rem; cursor: pointer; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; width: 100%; }
+    .status-msg { margin-top: 1rem; font-size: 0.85rem; }
+    .info-item { margin-bottom: 1.5rem; }
+    .info-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.25rem; }
+    .info-value { font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <nav id="sb-nav"></nav>
+  <div class="contact-wrap">
+    <div class="contact-left">
+      <h1 data-sb="contact.header.heading">Write to us!</h1>
+      <p style="opacity:0.7;font-weight:300" data-sb="contact.header.subtext">We'd love to hear from you.</p>
+      <div style="margin-top:3rem">
+        <div class="info-item"><div class="info-label">Email</div><div class="info-value" data-sb="contact.info.email">sterlingberrytea@gmail.com</div></div>
+        <div class="info-item"><div class="info-label">Location</div><div class="info-value" data-sb="contact.info.address">Raleigh, NC</div></div>
+        <div class="info-item"><div class="info-label">Hours</div><div class="info-value" data-sb="contact.info.hours">Mon–Fri 9am–5pm EST</div></div>
+      </div>
+    </div>
+    <div class="contact-right">
+      <form id="contact-form">
+        <div class="form-group"><label>Your Name</label><input type="text" name="name" required/></div>
+        <div class="form-group"><label>Email Address</label><input type="email" name="email" required/></div>
+        <div class="form-group"><label>Message</label><textarea name="message" required></textarea></div>
+        <button type="submit" class="submit-btn">Send Message</button>
+        <p id="status" class="status-msg"></p>
+      </form>
+    </div>
+  </div>
+  <script src="/nav.js"></script>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit',async e=>{
+      e.preventDefault();
+      const status = document.getElementById('status');
+      status.textContent = 'Sending...';
+      const fd = new FormData(e);
+      try {
+        const res = await fetch('/api/send-contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:fd.get('name'),email:fd.get('email'),message:fd.get('message')})});
+        status.textContent = res.ok ? 'Thank you! We\'ll be in touch soon.' : 'Sorry, something went wrong. Please email us directly.';
+      } catch { status.textContent = 'Sorry, something went wrong.'; }
+    });
+  </script>
+</body>
+</html>
