@@ -37,4 +37,113 @@
 <div class="page-header"><div class="page-header-inner"><div class="eyebrow">Customer Policies</div><h1>Returns, Refunds &amp; <em>Privacy</em></h1><p>We want every order to be perfect. If it's not, we'll make it right &#1087;</p></div></div>
 <div class="tabs-nav"><div class="tabs-inner"><a href="#returns" class="tab-link active">Returns &amp; Refunds</a><a href="#shipping" class="tab-link">Shipping</a><a href="#privacy" class="tab-link">Privacy</a><a href="#terms" class="tab-link">Terms</a></div></div>
     <div class="policy-wrap"><main class="policy-content"><section class="policy-section" id="returns"><h2>Returns &amp; Refunds</h2><p>If you're not satisfied with your order for any reason, contact us within 30 days of delivery and we will make it right (refund, replacement, or store credit).</p><h3>Return Window</h3><p>30 days from delivery for unopened products.</p><h3>Refund Process</h3><p>Submit request > We review &amp; approve > Ship item back > Refund issued within 3-5 business days.</p></section><section class="policy-section" id="shipping"><h2>Shipping</h2><p>Orders processed within 1-2 business days. Standard shipping $4.99 (5-7 days). Free shipping on orders over $50.</p></section><section class="policy-section" id="privacy"><h2>Privacy Policy</h2><p>We collect order information, payment (handled by Stripe), and analytics data (if you consent). We never sell your data.</p></section><section class="policy-section" id="terms"><h2>Terms of Service</h2><p>By using the Sterling Berry website or placing an order, you agree to these Terms. Our products are not intended to diagnose, treat, or cure any disease.</p><div class="last-updated">Last updated: April 2026</div></section></main></div>
-<footer><div class="footer-inner"><div class="footer-brand">Sterling Berry Herbs &amp; Teas<span>Raleigh, NC t· Est. 2020</span></div><ul class="footer-links"><li><a href="shop.html">Shop</a></li><li><a href="contact.html">Contact</a></li><li><a href="rewards.html">Rewards</a></li></ul></div><div class="footer-bottom">© 2026 Sterling Berry Herbs &amp; Teas</div></footer><script src="nav.js"></script><script src="animations.js"></script></script></body></html>
+<footer><div class="footer-inner"><div class="footer-brand">Sterling Berry Herbs &amp; Teas<span>Raleigh, NC t· Est. 2020</span></div><ul class="footer-links"><li><a href="shop.html">Shop</a></li><li><a href="contact.html">Contact</a></li><li><a href="rewards.html">Rewards</a></li></ul></div><div class="footer-bottom">© 2026 Sterling Berry Herbs &amp; Teas</div></footer><script src="nav.js"></script><script src="animations.js"></script></script></body></html>ht; font-size: 0.75rem; line-height: 1.9; }
+    .footer-contact a { color: var(--gold-light); text-decoration: none; }
+    .footer-bottom { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); font-size: 0.65rem; }
+
+    @media (max-width: 860px) {
+      .page-header { padding: 120px 1.5rem 3rem; }
+      .tabs-inner { padding: 0 1.5rem; overflow-x: auto; }
+      .tab-link { padding: 0.8rem 1rem; white-space: nowrap; }
+      .policy-wrap { grid-template-columns: 1fr; padding: 2rem 1.5rem; gap: 2rem; }
+      .policy-sidebar { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-contact { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="eyebrow">Customer Policies</div>
+    <h1>Returns, Refunds &amp; <em>Privacy</em></h1>
+    <p>We want every order to be perfect. If it's not, we'll make it right. Read our full policies below.</p>
+  </div>
+</div>
+
+<div class="tabs-nav">
+  <div class="tabs-inner">
+    <a href="#returns"  class="tab-link active">Returns &amp; Refunds</a>
+    <a href="#shipping" class="tab-link">Shipping</a>
+    <a href="#privacy"  class="tab-link">Privacy Policy</a>
+    <a href="#cookies"  class="tab-link">Cookie Policy</a>
+    <a href="#terms"    class="tab-link">Terms of Service</a>
+  </div>
+</div>
+
+<div class="policy-wrap">
+  <nav class="policy-sidebar">
+    <div class="policy-sidebar-label">On This Page</div>
+    <ul>
+      <li><a href="#returns">Returns &amp; Refunds</a></li>
+      <li><a href="#return-form">Start a Return</a></li>
+      <li><a href="#shipping">Shipping Policy</a></li>
+      <li><a href="#privacy">Privacy Policy</a></li>
+      <li><a href="#terms">Terms of Service</a></li>
+    </ul>
+  </nav>
+  <main class="policy-content">
+    <section class="policy-section" id="returns">
+      <h2>Returns &amp; <em>Refunds</em></h2>
+      <div class="callout callout-green"><p><strong>Our commitment:</strong> If you're not satisfied with your order for any reason, contact us within 30 days.</p></div>
+      <h3>Return Window</h3><p>You may return any unopened product within <strong>30 days</strong> of the delivery date for a full refund.</p>
+      <h3>Refind Process</h3><div class="timeline"><div class="timeline-item"><div class="timeline-dot">1</div><div class="timeline-content"><h4>Submit Your Request</h4><p>Fill out the return form below.</p></div></div><div class="timeline-item"><div class="timeline-dot">2</div><div class="timeline-content"><h4>Refund Issued</h4><p>Within 3-5 business days of receipt.</p></div></div></div>
+    </section>
+    <section class="policy-section" id="return-form">
+      <h2>Start a <em>Return</em></h2>
+      <div class="return-form-box">
+        <div id="return-form-fields">
+          <div class="form-row"><div class="form-group"><label>First Name *</label><input type="text" id="rf-fname" placeholder="Jane"/></div><div class="form-group"><label>Last Name *</label><input type="text" id="rf-lname" placeholder="Smith"/></div></div>
+          <div class="form-row"><div class="form-group"><label>Email *</label><input type="email" id="rf-email"/></div><div class="form-group"><label>Order Number *</label><input type="text" id="rf-order" placeholder="SB-123456"/></div></div>
+          <div class="form-group"><label>Reason for Return *</label><select id="rf-reason"><option value="">Select a reason</option><option>Item arrived damaged</option><option>Wrong item received</option><option>Changed my mind</option><option>Other</option></select></div>
+          <div class="form-group"><label>Additional Details</label><textarea id="rf-details"></textarea></div>
+          <button class="submit-btn" onclick="submitReturn()">Submit Return Request &#862;</button>
+        </div>
+        <div class="form-success" id="return-success"><h4>Return Request Received</h4><p>We'll respond within 2 business days.</p></div>
+      </div>
+    </section>
+    <section class="policy-section" id="shipping">
+      <h2>Shipping <em>Policy</em></h2>
+      <p>Orders processed within 1-2 business days.</p>
+      <ul><li><strong>Standard Shipping</strong> — $4.99 · 5-7 business days</li><li><strong>Priority Shipping</strong> — $9.99 · 2-3 business days</li><li><strong>Free Shipping</strong> — Orders over $50</li><li><strong>Local Pickup</strong> — Free · Cary &amp; Apex, NCTw</li></ul>
+    </section>
+    <section class="policy-section" id="privacy">
+      <h2>Privacy <em>Policy</em></h2>
+      <p>We collect order information, payment (handled by Stripe), and analytics data (if you consent). We never sell your data.</p>
+      <p>Your data is stored on Supabase's encrypted infrastructure. Payment data is never stored by us.</p>
+    </section>
+    <section class="policy-section" id="cookies">
+      <h2>Cookie <em>Policy</em></h2>
+      <p>Cookies are small text files stored on your device. We use them to make the site work and to understand how it's used. You can opt out at any time.</p>
+    </section>
+    <section class="policy-section" id="terms">
+      <h2>Terms of <em>Service</em></h2>
+      <p>By using the Sterling Berry website or placing an order, you agree to these Terms. Our products are not intended to diagnose, treat, or cure any disease. Governing law: North Carolina, USA.</p>
+      <div class="last-updated">Last updated: April 2026 · <a href="contact.html">Contact us</a> with questions.</div>
+    </section>
+  </main>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Sterling Berry Herbs &amp; Teas<span>Raleigh, NC t· Est. 2020</span></div>
+    <ul class="footer-links"><li><a href="shop.html">Shop</a></li><li><a href="contact.html">Contact</a></li><li><a href="rewards.html">Rewards</a></li></ul>
+    <div class="footer-contact">Raleigh, NC, US<br><a href="mailto:sterlingberrytea@gmail.com">sterlingberrytea@gmail.com</a></div>
+  </div>
+  <div class="footer-bottom">© 2026 Sterling Berry Herbs &amp; Teas · All Rights Reserved</div>
+</footer>
+<script src="nav.js"></script><script src="animations.js"></script><soript src="cookie-consent.js"></script>
+<script>
+function submitReturn() {
+  const fname = document.getElementById('rf-fname').value.trim();
+  const email = document.getElementById('rf-email').value.trim();
+  const order = document.getElementById('rf-order').value.trim();
+  const reason = document.getElementById('rf-reason').value;
+  if (!fname || !email || !order || !reason) { alert('Please fill in all required fields.'); return; }
+  document.getElementById('return-form-fields').style.display = 'none';
+  document.getElementById('return-success').style.display = 'block';
+}
+</pcript>
+</body>
+</html>
