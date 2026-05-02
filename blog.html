@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="content.js"></script>
+  <script src="seo.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tea Journal | Brewing Guides & Stories | Sterling Berry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="mobile.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --cream: #f9f5ef; --bark: #5c3d2e; --gold: #b8935a; --deep-sage: #4a6651; --muted: #8a8178; --border: #e0d8cc; }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--bark); }
+    .page-header { background: linear-gradient(135deg,#5c3d2e 0%,#4a6651 100%); padding: 130px 24px 4rem; color: #fff; }
+    .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem,5vw,2.8rem); font-weight: 300; }
+    .blog-wrap { max-width: 800px; margin: 0 auto; padding: 4rem 24px; }
+    .post-card { background: #fff; margin-bottom: 2rem; }
+    .post-img { height: 200px; background: var(--bark); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+    .post-body { padding: 1.5rem; }
+    .post-tag { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--deep-sage); margin-bottom: 0.5rem; }
+    .post-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 0.5rem; }
+    .post-title a { text-decoration: none; color: inherit; }
+    .post-excerpt { font-size: 0.88rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+    .read-more { display: inline-block; margin-top: 1rem; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; color: var(--gold); }
+    .posts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    @media(max-width:720px){.posts-grd{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <nav id="sb-nav"></nav>
+  <section class="page-header">
+    <div>
+      <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.7;margin-bottom:0.5rem">Tea Journal</p>
+      <h1>Brewing Guides &amp; Stories</h1>
+      <p style="opacity:0.7;font-weight:300;margin-top:0.5rem">Tips, tea knowledge, and stories from our Raleigh family.</p>
+    </div>
+  </section>
+  <section class="blog-wrap">
+    <div class="posts-grid">
+      <article class="post-card"><div class="post-img">�></div><div class="post-body"><div class="post-tag">Ingredients</div><h2 class="post-title"><a href="/blog-post.html?id=fig-leaf">The Magic of Fig Leaf Tea</a></h2><p class="post-excerpt">North Carolina's native fig leaves produce a uniquely earthy, subtly sweet infusion. Learn how we harvest and blend this...</p><a class="read-more" href="/blog-post.html?id=fig-leaf">Read More ₒ</a></div></article>
+      <article class="post-card"><div class="post-img">🍵</div><div class="post-body"><div class="post-tag">Brewing Guides</div><h2 class="post-title"><a href="/blog-post.html?id=brewing-temperature">Perfect Brewing Temperatures</a></h2><p class="post-excerpt">Every tea deserves its ideal temperature. From delicate whites to robust blacks, master the art of temperature control.</p><a class="read-more" href="/blog-post.html?id=brewing-temperature">Read More ₒ</a></div></article>
+      <article class="post-card"><div class="post-img">🎡</div><div class="post-body"><div class="post-tag">Wellness</div><h2 class="post-title"><a href="/blog-post.html?id=wellness-herbal">Wellness Teas: A Beginner's Guide</a></h2><p class="post-excerpt">From camomile to adaptogens, explore herbal teas that support your wellness routine.</p><a class="read-more" href="/blog-post.html?id=wellness-herbal">Read More ₒ</a></div></article>
+      <article class="post-card"><div class="post-img">🏪</div><div class="post-body"><div class="post-tag">Oolong</div><h2 class="post-title"><a href="/blog-post.html?id=oolong-guide">Oolong: The Tea Between Worlds</a></h2><p class="post-excerpt">Oolong offers the best of both green and black teas. Explore our curated selection and brewing tips.</p><a class="read-more" href="/blog-post.html?id=oolong-guide">Read More ₒ</a></div></article>
+    </div>
+  </section>
+  <script src="/nav.js"></script>
+  <script src="/animations.js"></script>
+</body>
+</html>
