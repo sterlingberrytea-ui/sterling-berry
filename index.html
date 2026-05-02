@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="content.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sterling Berry Herbs & Teas | Premium Loose Leaf Teas | Raleigh NC</title>
+  <script src="seo.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="mobile.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #f9f5ef; --warm-white: #fdfaf5; --deep-sage: #4a6651;
+      --bark: #5c3d2e; --gold: #b8935a; --gold-light: #d4b07a;
+      --charcoal: #2c2c2c; --muted: #8a8178; --border: #e0d8cc;
+    }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--charcoal); }
+    .btn { display: inline-block; text-decoration: none; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2.2rem; font-weight: 400; transition: all 0.3s; }
+    .btn-primary { background: var(--bark); color: #fff; }
+    .btn-primary:hover { background: var(--deep-sage); }
+    .btn-outline { border: 1px solid var(--bark); color: var(--bark); }
+    .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 85vh; }
+    .hero-text { padding: 140px 4rem 4rem; display: flex; flex-direction: column; justify-content: center; }
+    .hero-text h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.2rem, 6vw, 5.5rem); font-weight: 300; color: var(--bark); line-height: 1; }
+    .hero-image { background: linear-gradient(135deg,#4a6651,#5c3d2e); display: flex; align-items: center; justify-content: center; font-size: 6rem; }
+    .marquee { background: var(--bark); color: rgba(255,255,255,0.7); padding: 0.8rem; overflow: hidden; white-space: nowrap; }
+    .marquee-track { display: inline-block; animation: marquee 30s linear infinite; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .stats-section { background: var(--warm-white); padding: 4rem; text-align: center; }
+    .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: var(--bark); }
+    .collections-section { padding: 6rem 4rem; }
+    .collections-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .col-card { background: #fff; padding: 2rem; text-align: center; cursor: pointer; transition: transform 0.3s; }
+    .col-card:hover { transform: translateY(-4px); }
+    .nl-strip { background: var(--bark); color: #fff; padding: 4rem; }
+    .nl-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4rem; }
+    .nl-form { display: flex; gap: 0.8rem; }
+    .nl-form input { padding: 0.85rem 1.5rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-family: 'Jost', sans-serif; width: 260px; outline: none; }
+    .nl-form input::placeholder { color: rgba(255,255,255,0.4); }
+    .nl-form button { padding: 0.85rem 2.2rem; background: var(--gold); color: #fff; border: none; cursor: pointer; font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; }
+    footer { background: #1e1812; color: rgba(249,245,239,0.5); padding: 3rem 4rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 2rem; }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a { text-decoration: none; font-size: 0.72rem; color: rgba(249,245,239,0.4); }
+    .footer-links a:hover { color: var(--gold-light); }
+    .footer-bottom { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); font-size: 0.65rem; }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-text">
+    <div style="font-size:0.65rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem;display:flex;align-items:center;gap:0.8rem;"><span style="width:1.5rem;height:1px;background:var(--gold);"></span>Raleigh, NC</div>
+    <h1>The Art of<br><em>Perfect Tea</em></h1>
+    <p style="font-size:0.9rem;color:var(--muted);font-weight:300;margin:1rem 0 2.5rem;line-height:1.8;max-width:420px;">Family-owned boutique tea shop in Raleigh, NC. Famous for North Carolina fig leaf infusions and premium loose leaf teas.</p>
+    <div class="hero-actions" style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <a href="shop.html" class="btn btn-primary">Shop Teas</a>
+      <a href="our-story.html" class="btn btn-outline">Our Story</a>
+    </div>
+  </div>
+  <div class="hero-image">🍱</div>
+</div>
+<div class="marquee">
+  <div class="marquee-track">
+    <span>· Premium Loose Leaf Teas · Fig Leaf Infusions · Blooming Teas · Herbal Blends · Green Teas · Black Teas · Oolong Teas · Premium Loose Leaf Teas · Fig Leaf Infusions · Blooming Teas · Herbal Blends </span>
+    <span>· Premium Loose Leaf Teas · Fig Leaf Infusions · Blooming Teas · Herbal Blends · Green Teas · Black Teas · Oolong Teas </span>
+  </div>
+</div>
+<section class="stats-section">
+  <div class="stats-grid">
+    <div><div class="stat-num" data-count="120">120+</div><div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-top:0.5rem;">Unique Teas</div></div>
+    <div><div class="stat-num" data-count="6">6+</div><div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-top:0.5rem;">Years Experience</div></div>
+    <div><div class="stat-num" data-count="3">3</div><div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-top:0.5rem;">Local Partners</div></div>
+    <div><div class="stat-num">100%</div><div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-top:0.5rem;">Satisfaction</div></div>
+  </div>
+</section>
+<section class="collections-section">
+  <div style="text-align:center;margin-bottom35rem;">
+    <div style="font-size:0.65rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem;">Shop by Collection</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--bark);">Explore Our Teas</h2>
+    <p style="font-size:0.88rem;color:var(--muted);font-weight:300;margin-top:0.5rem;">120+ loose leaf teas & herbal blends, starting from $1.50</p>
+  </div>
+  <div class="collections-grid">
+    <a href="shop.html?cat=fig" class="col-card" style="text-decoration:none;color:inherit;">
+      <div style="font-size:3.5rem;margin-bottom:1rem;">🍡</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--bark);margin-bottom:0.5rem;">Fig Leaf Teas</h3>
+      <p style="font-size:0.8rem;color:var(--muted);font-weight:300;margin-bottom:1rem;">Signature NC fig leaf infusions</p>
+      <span style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);">Shop Now →</span>
+    </a>
+    <a href="shop.html?cat=herbal" class="col-card" style="text-decoration:none;color:inherit;">
+      <div style="font-size:3.5rem;margin-bottom:1rem;">�</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:40;color:var(--bark);margin-bottom:0.5rem;">Herbal Blends</h3>
+      <p style="font-size:0.8rem;color:var(--muted);font-weight:300;margin-bottom:1rem;">Caffeine-free herbal infusions</p>
+      <span style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);">Shop Now &#862;</span>
+    </a>
+    <a href="shop.html?cat=black" class="col-card" style="text-decoration:none;color:inherit;">
+      <div style="font-size:3.5rem;margin-bottom:1rem;">🍵</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--bark);margin-bottom:0.5rem;">Classic Teas</h3>
+      <p style="font-size:0.8rem;color:var(--muted);font-weight:300;margin-bottom:1rem;">Black, green, &amp; oolong selections</p>
+      <span style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);">Shop Now &#862;/</span>
+    </a>
+  </div>
+</section>
+<section class="nl-strip">
+  <div class="nl-inner">
+    <div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;margin-bottom:0.5rem;">Join the Tea Circle</h3>
+      <p style="font-size:0.9rem;color:rgba(255,255,255,0.7);font-weight:300;">Get new tea releases, brewing tips, and exclusive offers.</p>
+    </div>
+    <div class="nl-form">
+      <input type="email" placeholder="your@email.com" id="hl-email"/>
+      <button onclick="subscribeNL()">Subscribe</button>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand" style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(249,245,239,0.7);">Sterling Berry Herbs &amp; Teas<span style="display:block;font-family:'Jost';font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(249,245,239,0.3);margin-top:0.3rem;">Raleigh, NC · Est. 2020</span></div>
+    <ul class="footer-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="giot.html">Gifts</a></li>
+      <li><a href="rewards.html">Rewards</a></li>
+      <li><a href="blog.html">Journal</a></li>
+      <li><a href="our-story.html">Our Story</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="footer-contact" style="text-align:right;font-size:0.75rem;line-height:1.9;">Raleigh, NC, US<br><a href="mailto:sterlingberrytea@gmail.com" style="color:var(--gold-light);text-decoration:none;">sterlingberrytea@gmail.com</a></div>
+  </div>
+  <div class="footer-bottom">© 2026 Sterling Berry Herbs &amp; Teas · All Rights Reserved</div>
+</footer>
+<script src="nav.js"></script>
+<script src="animations.js"></script>
+<script src="cookie-consent.js"></script>
+<script>
+async function subscribeNL() {
+  const email = document.getElementById('hl-email').value.trim();
+  if (!email || !email.includes('@')) { alert('Please enter a valid email.'); return; }
+  try {
+    const r = await fetch('/api/newsletter-subscribe', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});
+    if (r.ok) alert('Thank you! You\'re now in the Sterling Circle !');
+  } catch { alert('Something went wrong. Please try again.'); }
+}
+</script>
+</body>
+</html>
