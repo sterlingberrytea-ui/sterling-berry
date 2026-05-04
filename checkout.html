@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="content.js"></script>
+  <script src="seo.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout | Sterling Berry Herbs & Teas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #f9f5ef; --warm-white: #fdfaf5; --sage: #7a9480; --deep-sage: #4a6651;
+      --bark: #5c3d2e; --gold: #b8935a; --gold-light: #d4b07a; --charcoal: #2c2c2c;
+      --muted: #8a8178; --border: #e0d8cc;
+    }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--charcoal); min-height: 100vh; }
+
+    
+    /* LAYOUT */
+    .checkout-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 4rem; display: grid; grid-template-columns: 1fr 400px; gap: 4rem; align-items: start; }
+
+    /* STEPS */
+    .steps { display: flex; gap: 0; margin-bottom: 2.5rem; }
+    .step { flex: 1; text-align: center; padding: 0.8rem; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--border); cursor: pointer; transition: all 0.2s; position: relative; }
+    .step.active { color: var(--bark); border-bottom-color: var(--gold); font-weight: 500; }
+    .step.done { color: var(--deep-sage); border-bottom-color: var(--deep-sage); }
+    .step-num { display: inline-block; width: 20px; height: 20px; border-radius: 50%; background: var(--border); color: var(--muted); font-size: 0.6rem; line-height: 20px; text-align: center; margin-right: 0.5rem; }
+    .step.active .step-num { background: var(--gold); color: #fff; }
+    .step.done .step-num { background: var(--deep-sage); color: #fff; }
+    .step.done .step-num::after { content: '✓'; }
+
+    /* FORM SECTIONS */
+    .form-section { display: none; }
+    .form-section.active { display: block; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--bark); margin-bottom: 0.3rem; }
+    .section-sub { font-size: 0.8rem; color: var(--muted); font-weight: 300; margin-bottom: 2rem; }
+
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.45rem; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border);
+      background: var(--warm-white); font-family: 'Jost', sans-serif;
+      font-size: 0.88rem; color: var(--charcoal); outline: none; transition: border-color 0.2s;
+      -webkit-appearance: none; appearance: none; font-weight: 300;
+    }
+    .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+    .form-group input.error { border-color: #c0392b; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-row-3 { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; }
+
+    /* RADIO OPTIONS */
+    .radio-group { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .radio-opt { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; border: 1px solid var(--border); background: var(--warm-white); cursor: pointer; transition: border-color 0.2s; }
+    .radio-opt:hover { border-color: var(--gold); }
+    .radio-opt.selected { border-color: var(--bark); background: rgba(92,61,46,0.03); }
+    .radio-opt input[type=radio] { accent-color: var(--bark); width: 16px; height: 16px; flex-shrink: 0; }
+    .radio-label { flex: 1; }
+    .radio-label strong { display: block; font-size: 0.85rem; font-weight: 400; color: var(--bark); }
+    .radio-label span { font-size: 0.75rem; color: var(--muted); font-weight: 300; }
+    .radio-price { font-size: 0.82rem; color: var(--bark); font-weight: 500; }
+
+    /* PAYMENT */
+    .card-icons { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .card-icon { font-size: 1.4rem; }
+    .card-field { position: relative; }
+    .card-field input { padding-right: 3rem; }
+    .card-field-icon { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); font-size: 1rem; color: var(--muted); }
+
+    /* NAV BUTTONS */
+    .form-nav { display: flex; gap: 1rem; margin-top: 2rem; }
+    .btn-next { flex: 1; padding: 1rem; background: var(--bark); color: #fff; border: none; cursor: pointer; font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; transition: background 0.3s; }
+    .btn-next:hover { background: var(--deep-sage); }
+    .btn-back { padding: 1rem 1.5rem; background: none; border: 1px solid var(--border); color: var(--muted); cursor: pointer; font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; transition: all 0.2s; }
+    .btn-back:hover { border-color: var(--bark); color: var(--bark); }
+
+    /* ORDER SUMMARY */
+    .order-summary { background: var(--warm-white); border: 1px solid var(--border); padding: 2rem; position: sticky; top: 2rem; }
+    .summary-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; color: var(--bark); margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .summary-items { max-height: 280px; overflow-y: auto; margin-bottom: 1.5rem; }
+    .summary-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 0; border-bottom: 1px solid rgba(224,216,204,0.5); }
+    .summary-item-icon { font-size: 1.4rem; width: 36px; height: 36px; background: linear-gradient(135deg,#ede7dd,#d8cfc2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; }
+    .summary-item-qty { position: absolute; top: -5px; right: -5px; background: var(--gold); color: #fff; border-radius: 50%; width: 16px; height: 16px; font-size: 0.55rem; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+    .summary-item-name { flex: 1; font-size: 0.82rem; color: var(--charcoal); font-weight: 300; }
+    .summary-item-price { font-size: 0.82rem; color: var(--bark); font-weight: 400; }
+    .summary-empty { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; font-weight: 300; }
+    .summary-lines { border-top: 1px solid var(--border); padding-top: 1rem; }
+    .summary-line { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; font-weight: 300; }
+    .summary-line.total { font-size: 1rem; color: var(--bark); font-weight: 400; padding-top: 0.6rem; border-top: 1px solid var(--border); margin-top: 0.5rem; }
+    .summary-line.total span:last-child { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; }
+
+    /* PROMO CODE */
+    .promo-wrap { margin-bottom: 1rem; }
+    .promo-row { display: flex; gap: 0; }
+    .promo-input { flex: 1; padding: 0.7rem 0.9rem; border: 1px solid var(--border); border-right: none; background: var(--cream); font-family: 'Jost', sans-serif; font-size: 0.85rem; color: var(--charcoal); outline: none; text-transform: uppercase; letter-spacing: 0.05em; transition: border-color 0.2s; }
+    .promo-input:focus { border-color: var(--gold); }
+    .promo-input.valid   { border-color: var(--deep-sage); background: rgba(74,102,81,0.04); }
+    .promo-input.invalid { border-color: #c0392b; }
+    .promo-apply { padding: 0.7rem 1.2rem; background: var(--bark); color: #fff; border: 1px solid var(--bark); font-family: 'Jost', sans-serif; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+    .promo-apply:hover { background: var(--deep-sage); border-color: var(--deep-sage); }
+    .promo-apply:disabled { opacity: 0.6; cursor: wait; }
+    .promo-feedback { font-size: 0.75rem; margin-top: 0.4rem; font-weight: 300; min-height: 1.2rem; display: flex; align-items: center; gap: 0.4rem; }
+    .promo-feedback.success { color: var(--deep-sage); }
+    .promo-feedback.error   { color: #c0392b; }
+    .promo-clear { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 0.8rem; transition: color 0.2s; }
+    .promo-clear:hover { color: #c0392b; }
+
+    /* Discount line in summary */
+    .summary-line.discount { color: var(--deep-sage); font-weight: 400; }
+    .summary-line.discount span:last-child { color: var(--deep-sage); }
+
+    /* SUCCESS */
+    .success-screen { display: none; text-align: center; padding: 4rem 2rem; }
+    .success-screen .success-icon { font-size: 4rem; margin-bottom: 1.5rem; }
+    .success-screen h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--bark); margin-bottom: 0.8rem; }
+    .success-screen h2 em { font-style: italic; color: var(--deep-sage); }
+    .success-screen p { font-size: 0.9rem; color: var(--muted); font-weight: 300; line-height: 1.8; max-width: 400px; margin: 0 auto 2rem; }
+    .success-screen .order-num { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; }
+    .success-screen a { display: inline-block; text-decoration: none; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2.2rem; background: var(--bark); color: #fff; transition: background 0.3s; }
+    .success-screen a:hover { background: var(--deep-sage); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      .checkout-wrap { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; }
+      .order-summary { position: static; order: -1; }
+      .form-row, .form-row-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+  <link rel="stylesheet" href="mobile.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="db.js"></script>
+</head>
+<body>
+
+<div class="checkout-wrap" id="checkout-wrap"><div class="checkout-left"><div class="steps"><div class="step active" id="step-1"><span class="step-num">1</span>Contact</div><div class="step" id="step-2"><span class="step-num">2</span>Shipping</div><div class="step" id="step-3"><span class="step-num">3</span>Payment</div></div><div class="form-section active" id="section-1"><div class="section-title">Contact <em style="font-style:italic;color:var(--deep-sage);">Information</em></div><div class="section-sub">We'll only use this to send your order confirmation.</div><div class="form-row"><div class="form-group"><label>First Name</label><input type="text" id="fname" placeholder="Jane"/></div><div class="form-group"><label>Last Name</label><input type="text" id="lname" placeholder="Smith"/></div></div><div class="form-group"><label>Email Address</label><input type="email" id="email" placeholder="jane@example.com"/></div><div class="form-group"><label>Phone (optional)</label><input type="tel" id="phone" placeholder="(555) 000-0000"/></div><div class="form-nav"><button class="btn-next" onclick="goStep(2)">Continue to Shipping →</button></div></div><div class="form-section" id="section-2"><div class="section-title">Shipping <em style="font-style:italic;color:var(--deep-sage);">Method</em></div><div class="section-sub">Shipping cost is calculated based on your order weight.</div><div class="radio-group" id="shipping-opts"></div><div class="form-group"><label>Street Address</label><input type="text" id="address" placeholder="123 Tea Lane"/></div><div class="form-group"><label>Apt / Suite (optional)</label><input type="text" id="apt" placeholder="Apt 4B"/></div><div class="form-row-3"><div class="form-group"><label>City</label><input type="text" id="city" placeholder="Raleigh"/></div><div class="form-group"><label>State</label><select id="state"><option value="">State</option><option value="NC" selected>NC</option><option value="VA">VA</option><option value="SC">SC</option><option value="GA">GA</option><option value="FL">FL</option><option>Other</option></select></div><div class="form-group"><label>ZIP Code</label><input type="text" id="zip" placeholder="27601" maxlength="5"/></div></div><div class="form-nav"><button class="btn-back" onclick="goStep(1)">← Back</button><button class="btn-next" onclick="goStep(3)">Continue to Payment →</button></div></div><div class="form-section" id="section-3"><div class="section-title">Secure <em style="font-style:italic;color:var(--deep-sage);">Payment</em></div><div class="section-sub">You'll be taken to Stripe's secure checkout to complete your payment.</div><div class="form-nav"><button class="btn-back" onclick="goStep(2)">← Back</button><button class="btn-next" id="stripe-pay-btn" onclick="redirectToStripe()">Pay Securely with Stripe →</button></div></div></div><div class="order-summary"><div class="summary-title">Order Summary</div><div class="summary-items" id="summary-items"><div class="summary-empty">Your cart is empty</div></div><div class="summary-lines"><div class="summary-line"><span>Subtotal</span><span id="sum-subtotal">$0.00</span></div><div class="summary-line"><span>Shipping</span><span id="sum-shipping">$4.99</span></div><div class="summary-line"><span>Tax (7.25%)</span><span id="sum-tax">$0.00</span></div><div class="summary-line total"><span>Total</span><span id="sum-total">$0.00</span></div></div></div></div><div class="success-screen" id="success-screen"><div class="success-icon">🎉</div><h2>Thank You For Your <em>Order!</em></h2><div class="order-num" id="order-num">Order #SB-000000</div><p>We've received your order and will send a confirmation to your email. Your teas will be on their way soon!</p><a href="shop.html">Continue Shopping</a></div><script>const cart=JSON.parse(localStorage.getItem('sb_cart')||'[]');let shippingCost=4.99,shippingLabel='Standard Shipping';const DEFAULT_SHIP_TIERS=[{maxG:100,label:'Letter / Sample',cost:1.99},{maxG:250,label:'Standard Small',cost:4.99},{maxG:1000,label:'Standard Large',cost:9.99}];function getCartWeightG(){let g=30;cart.forEach(i=>{g+=57*(i.qty||1)});return g} function parsePrice(s){const m=s.match(/[\d.]+/);return m?parseFloat(m[0]):0} function calcSubtotal(){return cart.reduce((s,i)=>s+parsePrice(i.price)*i.qty,0)} let appliedPromo=null;function buildShippingOptions(){const tiers=DEFAULT_SHIP_TIERS;let autoTier=tiers.find(t=>totalWeightG<=t.maxG)||tiers[tiers.length-1];const opts=document.getElementById('shipping-opts');if(!opts)return;shippingCost=autoTier.cost;shippingLabel=autoTier.label;updateSummary()} function updateSummary(){const sub=calcSubtotal();const tax=sub*0.0725;const total=sub+shippingCost+tax;document.getElementById('sum-subtotal').textContent='$'+sub.toFixed(2);document.getElementById('sum-shipping').textContent=shippingCost===0?'Free':'$'+shippingCost.toFixed(2);document.getElementById('sum-tax').textContent='$'+tax.toFixed(2);document.getElementById('sum-total').textContent='$'+total.toFixed(2);const el=document.getElementById('summary-items');if(cart.length===0){el.innerHTML='<div class="summary-empty">Your cart is empty</div>';r}else{el.innerHTML=cart.map(i=>(<div class=summary-item>+i:icon+'<div class=summary-item-name>'+i.name+'</div><div class=summary-item-price>$'+((parsePrice(i.price)*i.qty).toFixed(2))+'</div></div>')).join('')}} function selectShipping(el,label,cost){shippingCost=parseFloat(cost);shippingLabel=label;updateSummary()} let currentStep=1;function goStep(n){document.getElementById('section-'+step).classList.remove('active');currentStep=n;document.getElementById('section-'+n).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})} async function redirectToStripe(){const cart=JSON.parse(localStorage.getItem('sb_cart')||'[]');if(!cart.length)return;const fname=document.getElementById('fname')?.value?.trim()||'';const email=document.getElementById('email')?.value?.trim()||'';if(!email){goStep(1);return;}const orderNum='SB-'+Math.floor(100000+Math.random()*900000);const btn=document.getElementById('stripe-pay-btn');btn.textContent='Redirecting...';btn.disabled=true;try{const res=await fetch('/api/create-checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({orderNum,items:cart.map(i=>({name:i.name,icon:i.icon,qty:i.qty,price:i.price})).customer:{first:fname,email},shipping:shippingCost>0?{label:shippingLabel,cost:shippingCost}:null})});const data=await res.json();if(data.url)window.location.href=data.url;else alert(data.error||'Checkout failed');}catch(e){alert('Error: '+e.message);btn.textContent='Pay Securely with Stripe';btn.disabled=false}} updateSummary();buildShippingOptions();</script><script src="nav.js"></script><script src="animations.js"></script></script><script src="cookie-consent.js"></script></body></html>
