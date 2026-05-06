@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="content.js"></script>
+  <script src="seo.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tea Journal | Sterling Berry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #f9f5ef; --warm-white: #fdfaf5; --sage: #7a9480; --deep-sage: #4a6651;
+      --bark: #5c3d2e; --gold: #b8935a; --gold-light: #d4b07a; --charcoal: #2c2c2c;
+      --muted: #8a8178; --border: #e0d8cc;
+    }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--charcoal); }
+    .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--gold); z-index: 999; width: 0%; }
+    .article-hero { padding: 140px 4rem 5rem; background: var(--warm-white); border-bottom: 1px solid var(--border); }
+    .article-hero-inner { max-width: 760px; margin: 0 auto; }
+    .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; margin-bottom: 2rem; transition: color 0.2s; }
+    .article-tag { display: inline-block; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); background: rgba(184,147,90,0.1); padding: 0.25rem 0.7rem; margin-bottom: 1.2rem; }
+    .article-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; color: var(--bark); line-height: 1.2; margin-bottom: 1.2rem; }
+    .article-wrap { max-width: 1100px; margin: 0 auto; padding: 4rem; display: grid; grid-template-columns: 1fr 280px; gap: 5rem; align-items: start; }
+    .article-body { font-size: 1rem; line-height: 1.9; color: #4a3e36; font-weight: 300; }
+    .article-body h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 400; color: var(--bark); margin: 2.5rem 0 1rem; }
+    .article-body p { margin-bottom: 1.4rem; }
+    .article-body blockquote { border-left: 3px solid var(--gold); padding: 1rem 1.5rem; margin: 2rem 0; background: rgba(184,147,90,0.06); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--bark); line-height: 1.7; }
+    .article-body ul { margin: 1rem 0 1.4rem 1.5rem; }
+    .article-body .callout { background: rgba(74,102,81,0.07); border: 1px solid rgba(74,102,81,0.2); padding: 1.5rem; margin: 2rem 0; }
+    .article-img { width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 6rem; margin: 2rem 0; background: linear-gradient(135deg, #c8d4b0, #8aab72); }
+    .article-sidebar { position: sticky; top: 110px; }
+    .sidebar-widget { background: var(--warm-white); border: 1px solid var(--border); padding: 1.8rem; margin-bottom: 1.5rem; }
+    .widget-title { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border); }
+    .related-post { padding: 0.8rem 0; border-bottom: 1px solid rgba(224,216,204,0.5); cursor: pointer; }
+    .shop-teaser { text-align: center; }
+    .toc-item { display: block; padding: 0.4rem 0; font-size: 0.78rem; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; padding-left: 0.8rem; transition: all 0.2s; }
+    .article-footer { max-width: 760px; margin: 0 auto 5rem; padding: 0 4rem; }
+    .tag-pill { padding: 0.3rem 0.9rem; border: 1px solid var(--border); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .share-row { display: flex; align-items: center; gap: 1rem; padding: 1.5rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 3rem; }
+    .share-btn { padding: 0.4rem 1rem; border: 1px solid var(--border); background: none; font-family: 'Jost', sans-serif; font-size: 0.68rem; cursor: pointer; color: var(--charcoal); transition: all 0.2s; }
+    footer { background: #1e1812; color: rgba(249,245,239,0.5); padding: 3rem 4rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 2rem; }
+    @media (max-width: 900px) {
+      .article-hero { padding: 120px 2rem 3rem; }
+      .article-wrap { grid-template-columns: 1fr; padding: 2rem; gap: 3rem; }
+      .article-sidebar { position: static; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+    }
+  </style>
+  <link rel="stylesheet" href="mobile.css"/>
+</head>
+<body>
+  <div class="progress-bar" id="progress-bar"></div>
+  <div class="article-hero"><div class="article-hero-inner">
+    <a href="blog.html" class="back-btn">← Back to Journal</a>
+    <div id="article-tag" class="article-tag"></div>
+    <h1 id="article-title"></h1>
+    <p class="lead" id="article-lead"></p>
+    <div class="article-meta">
+      <span id="article-date"></span><span class="article-meta-dot">·</span>
+      <span id="article-read"></span><span class="article-meta-dot">·</span>
+      <span>By <strong>Sterling Berry Team</strong></span>
+    </div>
+  </div></div>
+
+  <div class="article-wrap">
+    <article class="article-body" id="article-body"></article>
+    <aside class="article-sidebar">
+      <div class="sidebar-widget"><div class="widget-title">In This Article</div><div id="toc-links"></div></div>
+      <div class="sidebar-widget"><div class="widget-title">Related Posts</div><div id="related-posts"></div></div>
+      <div class="sidebar-widget shop-teaser"><div class="teaser-icon">🌿</div><p>Ready to brew?</p><a href="shop.html">Shop All Teas</a></div>
+    </aside>
+  </div>
+  <div class="article-footer">
+    <div class="tag-list" id="article-tags"></div>
+    <div class="share-row"><span class="share-label">Share:</span>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy Link</button>
+    </div>
+    <a href="blog.html" class="back-to-blog">← All Articles</a>
+  </div>
+  <footer><div class="footer-inner">
+    <div class="footer-brand">Sterling Berry Herbs &amp; Teas<span>Raleigh, NC ³ Est. 2020</span></div>
+    <ul class="footer-links"><li><a href="contact.html">Contact</a></li></ul>
+    <div class="footer-contact">Raleigh, NC<br><a href="mailto:sterlingberrytea@gmail.com">sterlingberrytea@gmail.com</a></div>
+  </div></footer>
+<script src="nav.js"></script>
+<script src="animations.js"></script>
+<script src="content.js"></script>
+<script src="cookie-consent.js"></script>
+</body>
+</html>
