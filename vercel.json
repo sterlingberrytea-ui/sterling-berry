@@ -1,7 +1,6 @@
 {
   "version": 2,
   "functions": {
-    "api/stripe-webhook.js": { "bodyParser": false },
     "api/abandoned-cart-check.js": { "maxDuration": 60 }
   },
   "crons": [
