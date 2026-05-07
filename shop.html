@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="content.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop All Teas | Sterling Berry Herbs &amp; Teas</title>
+  <script src="seo.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="mobile.css"/>
+  <script src="db.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--cream:#f9f5ef;--warm-white:#fdfaf5;--sage:#7a9480;--deep-sage:#4a6651;--bark:#5c3d2e;--gold:#b8935a;--gold-light:#d4b07a;--charcoal:#2c2c2c;--muted:#8a8178;--border:#e0d8cc}
+    html{scroll-behavior:smooth}
+    body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--charcoal);overflow-x:hidden}
+    .shop-header{padding:140px 4rem 4rem;background:var(--warm-white);border-bottom:1px solid var(--border)}
+    .shop-header-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:end;gap:2rem}
+    .shop-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;color:var(--bark)}
+    .shop-header h1 em{font-style:italic;color:var(--deep-sage)}
+    .shop-count{font-size:.72rem;color:var(--muted);margin-top:.3rem}
+    .shop-main{max-width:1200px;margin:0 auto;padding:3rem 4rem;display:grid;grid-template-columns:220px 1fr;gap:3rem;align-items:start}
+    .shop-sidebar{position:sticky;top:110px}
+    .filter-group{margin-bottom:2rem}
+    .filter-title{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+    .filter-options{display:flex;flex-direction:column;gap:.4rem}
+    .filter-opt{display:flex;align-items:center;gap:.5rem;cursor:pointer;padding:.3rem 0;font-size:.82rem;color:var(--muted);transition:color .2s}
+    .filter-opt:hover,.filter-opt.active{color:var(--bark)}
+    .filter-opt input[type=checkbox]{accent-color:var(--bark)}
+    .filter-opt-label{flex:1}
+    .filter-opt-count{font-size:.7rem;color:var(--muted)}
+    .products-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+    .products-count{font-size:.75rem;color:var(--muted)}
+    .sort-select{font-family:'Jost',sans-serif;font-size:.75rem;padding:.3rem .6rem;border:1px solid var(--border);background:var(--warm-white);color:var(--charcoal);outline:none;cursor:pointer}
+    .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .product-card{background:var(--warm-white);border:1px solid var(--border);transition:transform .3s,box-shadow .3s;cursor:pointer;position:relative;overflow:hidden}
+    .product-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.08)}
+    .product-img{width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--cream)}
+    .product-info{padding:1.2rem}
+    .product-category{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+    .product-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--bark);margin-bottom:.4rem;line-height:1.35}
+    .product-short{font-size:.72rem;color:var(--muted);font-weight:300;line-height:1.6;margin-bottom:.8rem}
+    .product-price-row{display:flex;align-items:baseline;gap:.5rem;margin-bottom:.5rem}
+    .product-price{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:var(--bark)}
+    .product-formats{display:flex;gap:.3rem;margin-bottom:.8rem;flex-wrap:wrap}
+    .format-badge{font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;padding:.2rem .5rem;border:1px solid var(--border);color:var(--muted)}
+    .product-add-btn{width:100%;padding:.6rem;background:var(--bark);color:#fff;border:none;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:background .3p}
+    .product-add-btn:hover{background:var(--deep-sage)}
+    .badge-new{position:absolute;top:.8rem;right:.8rem;background:var(--gold);color:#fff;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;padding:.2rem .5rem}
+    .badge-signature{position:absolute;top:.8rem;right:.8rem;background:var(--deep-sage);color:#fff;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;padding:.2rem .5rem}
+    .empty-state{text-align:center;padding:4rem;grid-column:1/-1}
+    .empty-state p{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--muted)}
+    .empty-state button{margin-top:1rem;padding:.6rem 1.5rem;background:var(--bark);color:#fff;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase}
+    footer{background:#1e1812;color:rgba(249,245,239,.5);padding:3rem 4rem}
+    .footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:2rem}
+    @media(max-width:900px){.shop-main{grid-template-columns:1fr}.shop-sidebar{position:static}.products-grid{grid-template-columns:repeat(2,1fr)}.footer-inner{grid-template-columns:1fr;text-align:center}}
+    @media(max-width:480px){.products-grid{grid-template-columns:1fr}.shop-header{padding:120px 1.5rem 3rem}}
+  </style>
+</head>
+<body>
+  <nav id="main-nav"></nav>
+
+  <header class="shop-header">
+    <div class="shop-header-inner">
+      <div>
+        <h1 data-sb="shop.heading">Shop All <em>Teas</em></h1>
+        <div class="shop-count" id="shop-count"></div>
+      </div>
+      <div style="font-size:.8rem;color:var(--muted);line-height:1.8;font-weight:300;max-width:360px;text-align:right" data-sb="shop.intro"></div>
+    </div>
+  </header>
+
+  <div class="shop-main">
+    <aside class="shop-sidebar">
+      <div class="filter-group">
+        <div class="filter-title">Category</div>
+        <div class="filter-options" id="cat-filters"></div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-title">Format</div>
+        <div class="filter-options">
+          <label class="filter-opt"><input type="checkbox" value="loose" onchange="applyFilters()"/><span class="filter-opt-label">Loose Leaf</span></label>
+          <label class="filter-opt"><input type="checkbox" value="bags" onchange="applyFilters()"/><span class="filter-opt-label">Tea Bags / Sachets</span></label>
+          <label class="filter-opt"><input type="checkbox" value="gift" onchange="applyFilters()"/><span class="filter-opt-label">Gift Sets &amp; Accessories</span></label>
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-title">Price Range</div>
+        <div class="filter-options">
+          <label class="filter-opt"><input type="checkbox" value="under20" onchange="applyFilters()"/><span class="filter-opt-label">Under $20</span></label>
+          <label class="filter-opt"><input type="checkbox" value="20to40" onchange="applyFilters()"/><span class="filter-opt-label">$20 – $40</span></label>
+          <label class="filter-opt"><input type="checkbox" value="over40" onchange="applyFilters()"/><span class="filter-opt-label">Over $40</span></label>
+        </div>
+      </div>
+      <button onclick="clearFilters()" style="width:100%;padding:.6rem;border:1px solid var(--border);background:none;font-size:.72rem;cursor:pointer;color:var(--muted)">Clear Filters</button>
+    </aside>
+
+    <div class="products-area">
+      <div class="products-toolbar">
+        <div class="products-count" id="products-count"></div>
+        <select class="sort-select" id="sort-select" onchange="applyFilters()">
+          <option value="default">For You</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="name">Name A–Z</option>
+        </select>
+      </div>
+      <div class="products-grid" id="products-grid"></div>
+    </div>
+  </div>
+
+  <footer><div class="footer-inner">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(249,245,239,.7)">Sterling Berry Herbs &amp; Teas<span style="display:block;font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(249,245,239,.3);margin-top:.3rem">Raleigh, NC · Est. 2020</span></div>
+    <ul style="display:flex;gap:2rem;list-style:none"><li><a href="index.html" style="text-decoration:none;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(249,245,239,.4)">Home</a></li><li><a href="subscriptions.html" style="text-decoration:none;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(249,245,239,.4)">Subscribe</a></li><li><a href="contact.html" style="text-decoration:none;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(249,245,239,.4)">Contact</a></li></ul>
+    <div style="text-align:right;font-size:.75rem"><a href="mailto:sterlingberrytea@gmail.com" style="color:var(--gold-light);text-decoration:none">sterlingberrytea@gmail.com</a></div>
+  </div></footer>
+
+  <script src="nav.js"></script>
+  <script src="animations.js"></script>
+  <script>
+  let allProducts=[];
+  function initShop(){
+    if(window.SBDb&&window.SBDb.products){allProducts=window.SBDb.products}
+    else{allProducts=[
+      {id:1,name:'Organic Fig Leaves Tea',category:'Fig Leaf',price:15.50,emoji:'🌿',formats:['loose'],short:'Pure fig leaf — our most popular tea.',badge:'signature'},
+      {id:2,name:'Tea of Eden',category:'Fig Leaf',price:17.00,emoji:'🌺',formats:['loose'],short:'Fig leaf with gentle floral notes.'},
+      {id:3,name:'Lavender Fig Leaves Tea',category:'Fig Leaf',price:16.50,emoji:'🌸',formats:['loose'],short:'Calming lavender meets fig leaf.',badge:'new'},
+      {id:4,name:'Maghrebi Mint Green Tea',category:'Green Tea',price:13.50,emoji:'🍵',formats:['loose','bags'],short:'Refreshing moroccan-style mint tea.'},
+      {id:5,name:'Ginger Fig Leaf Tea',category:'Fig Leaf',price:16.00,emoji:'🌱',formats:['loose'],short:'Warming ginger with fig leaf.'},
+      {id:6,name:'Blue Butterfly Fig Leaf Tea',category:'Fig Leaf',price:18.00,emoji:'💜',formats:['loose'],short:'Butterfly pea flower indigo blend.',badge:'new'},
+      {id:7,name:'Oolong Tea - O Mei',category:'Oolong Tea',price:18.50,emoji:'🍃',formats:['loose'],short:'Medium-oxidized oolong with smooth character.'},
+      {id:8,name:'Turmeric Golden Chai',category:'Herbal Tea',price:14.50,emoji:'🌼',formats:['loose','bags'],short:'Anti-inflammatory turmeric with black pepper.'},
+      {id:9,name:'Elderberry Detox',category:'Herbal Tea',price:15.00,emoji:'🌿',formats:['loose','bags'],short:'Immune-supporting elderberry blend.'},
+      {id:10,name:'Dionisus Red',category:'Black Tea',price:16.00,emoji:'🍷',formats:['loose'],short:'Bold black tea with multivintage character.'},
+      {id:11,name:'Tea Variety Box ($35)',category:'Gift Sets',price:35.00,emoji:'🎁',formats:['gift'],short:'Hand-curated box. Great gift.'},
+      {id:12,name:'Tea Heart Bombs',category:'Gift Sets',price:6.00,emoji:'💝',formats:['gift'],short:'Dissolves in hot water — perfect gift.'},
+      {id:13,name:'Ti Kwan Yin Oolong',category:'Oolong Tea',price:20.00,emoji:'☕',formats:['loose'],short:'Iron Goddess of Mercy — lightly oxidized floral.'},
+      {id:14,name:'Stress Away Herbal',category:'Herbal Tea',price:14.00,emoji:'🌿',formats:['loose','bags'],short:'Ashwagandha and lemon balm for calm.'},
+      {id:15,name:'Immunity Boost Tea',category:'Herbal Tea',price:15.50,emoji:'✨',formats:['loose','bags'],short:'Echinacea, rose hip, elderflower blend.'},
+      {id:16,name:'Mystery Tea Box ($35)',category:'Gift Sets',price:35.00,emoji:'📦',formats:['gift'],short:'Surprise selection of our best teas.'},
+      {id:17,name:'Digestive Help Tea',category:'Herbal Tea',price:13.50,emoji:'🌱',formats:['loose','bags'],short:'Peppermint & ginger for digestion.'}
+    ]}
+    buildCatFilters();renderProducts();
+  }
+  function buildCatFilters(){
+    const cats=[...new Set(allProducts.map(p=>p.category))];
+    document.getElementById('cat-filters').innerHTML=cats.map(c=>`<label class="filter-opt"><input type="checkbox" value="${c}" onchange="applyFilters()"/><span class="filter-opt-label">${c}</span><span class="filter-opt-count">${allProducts.filter(p=>p.category===c).length}</span></label>`).join('');
+  }
+  function applyFilters(){
+    const chkCats=[...document.querySelectorAll('#cat-filters input:checked')].map(i=>i.value);
+    const chkFmts=[...document.querySelectorAll('.filter-options input[value=loose]:checked,.filter-options input[value=bags]:checked,.filter-options input[value=gift]:checked')].map(i=>i.value);
+    const chkPrc=[...document.querySelectorAll('.filter-options input[value=under20]:checked,.filter-options input[value=20to40]:checked,.filter-options input[value=over40]:checked')].map(i=>i.value);
+    const sort=document.getElementById('sort-select').value;
+    let f=allProducts.filter(p=>{
+      if(chkCats.length&&!chkCats.includes(p.category))return false;
+      if(chkFmts.length&&!p.formats.some(x=>chkFmts.includes(x)))return false;
+      if(chkPrc.length){const ok=chkPrc.some(r=>{if(r==='under20')return p.price<20;if(r==='20to40')return p.price>=20&&p.price<=40;if(r==='over40')return p.price>40;return false});if(!ok)return false}
+      return true;
+    });
+    if(sort==='price-asc')f.sort((a,b)=>a.price-b.price);
+    else if(sort==='price-desc')f.sort((a,b)=>b.price-a.price);
+    else if(sort==='name')f.sort((a,b)=>a.name.localeCompare(b.name));
+    renderProducts(f);
+  }
+  function clearFilters(){document.querySelectorAll('.filter-opt input').forEach(i=>i.checked=false);document.getElementById('sort-select').value='default';renderProducts();}
+  function renderProducts(list){
+    list=list||allProducts;
+    const grid=document.getElementById('products-grid');
+    document.getElementById('products-count').textContent=list.length+' product'+(list.length!==1?'s':'');
+    document.getElementById('shop-count').textContent=allProducts.length+' teas';
+    if(!list.length){grid.innerHTML='<div class="empty-state"><p>No teas match your filters.</p><button onclick="clearFilters()">Clear Filters</button></div>';return;}
+    grid.innerHTML=list.map(p=>{
+      const badge=p.badge==='new'?'<span class="badge-new">New</span>':p.badge==='signature'?'<span class="badge-signature">Signature</span>':'';
+      const fmts=p.formats.map(f=>`<span class="format-badge">${f==='loose'?'Loose Leaf':f==='bags'?'Tea Bags':'Gift Set'}</span>`).join('');
+      return`<div class="product-card" onclick="addToCart(${p.id})">${badge}<div class="product-img">${p.emoji}</div><div class="product-info"><div class="product-category">${p.category}</div><div class="product-name">${p.name}</div><div class="product-short">${p.short}</div><div class="product-formats">${fmts}</div><div class="product-price-row"><span class="product-price">$${p.price.toFixed(2)}</span></div><button class="product-add-btn" onclick="event.stopPropagation();addToCart(${p.id})">Add to Cart</button></div></div>`;
+    }).join('');
+  }
+  function addToCart(id){const p=allProducts.find(p=>p.id===id);if(!p)return;if(window.SBCart){window.SBCart.add(p)}else{alert('Added: '+p.name+'\nVisit checkout.html to complete your order.');}}
+  document.addEventListener('DOMContentLoaded',initShop);
+  if(document.readyState!=='loading')initShop();
+  </script>
+  <script src="cookie-consent.js"></script>
+</body>
+</html>
