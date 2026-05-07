@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin | Sterling Berry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{--bark:#5c3d2e;--gold:#b8935a;--cream:#f9f5ef;--sage:#4a6651;--border:#e0d8cc;--muted:#8a8178}
+    body{font-family:'Jost',sans-serif;background:var(--cream);color:#2c2c2c}
+    #login{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bark)}
+    .login-box{background:#fff;padding:3rem;width:100%;max-width:380px;text-align:center}
+    .login-box h1{font-size:1.4rem;font-weight:400;color:var(--bark);margin-bottom:.5rem}
+    .login-box p{font-size:.78rem;color:var(--muted);margin-bottom:2rem}
+    .login-box input{width:100%;padding:.85rem 1rem;border:1px solid var(--border);font-family:'Jost',sans-serif;font-size:.88rem;outline:none;margin-bottom:.8rem}
+    .login-box button{width:100%;padding:1rem;background:var(--bark);color:#fff;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase}
+    #admin{display:none}
+    .admin-nav{background:var(--bark);color:#fff;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
+    .admin-nav h1{font-size:1rem;font-weight:400;letter-spacing:.05em}
+    .admin-nav button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);color:#fff;padding:.3rem .8rem;font-size:.7rem;cursor:pointer;font-family:'Jost',sans-serif}
+    .admin-body{max-width:1200px;margin:0 auto;padding:2rem}
+    .tabs{display:flex;gap:.5rem;margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:0}
+    .tab{padding:.6rem 1.2rem;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;border:none;background:none;color:var(--muted);font-family:'Jost',sans-serif;border-bottom:2px solid transparent;margin-bottom:-1px}
+    .tab.active{color:var(--bark);border-bottom-color:var(--gold)}
+    .panel{display:none}.panel.active{display:block}
+    .card{background:#fff;border:1px solid var(--border);padding:1.5rem;margin-bottom:1rem}
+    .card h3{font-size:.85rem;font-weight:500;color:var(--bark);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+    .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+    .stat{background:#fff;border:1px solid var(--border);padding:1.2rem;text-align:center}
+    .stat-num{font-size:2rem;font-weight:300;color:var(--bark);font-family:Georgia,serif;line-height:1}
+    .stat-label{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;margin-top:.3rem}
+    table{width:100%;border-collapse:collapse;font-size:.8rem}
+    th{text-align:left;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:.5rem;border-bottom:1px solid var(--border)}
+    td{padding:.7rem .5rem;border-bottom:1px solid rgba(224,216,204,.5);vertical-align:top}
+    .badge{font-size:.58rem;padding:.15rem .4rem;letter-spacing:.1em;text-transform:uppercase}
+    .badge-paid{background:rgba(74,102,81,.1);color:var(--sage)}
+    .badge-pending{background:rgba(184,147,90,.1);color:var(--gold)}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+    label{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.3rem}
+    input,select,textarea{width:100%;padding:.6rem .8rem;border:1px solid var(--border);font-family:'Jost',sans-serif;font-size:.82rem;outline:none}
+    .btn{padding:.6rem 1.2rem;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase}
+    .btn-primary{background:var(--bark);color:#fff}
+    .btn-outline{background:none;border:1px solid var(--border);color:var(--muted)}
+    .status{font-size:.75rem;padding:.5rem 1rem;background:rgba(74,102,81,.08);border:1px solid rgba(74,102,81,.2);color:var(--sage);margin-top:1rem;display:none}
+  </style>
+</head>
+<body>
+<div id="login">
+  <div class="login-box">
+    <h1>Sterling Berry Admin</h1>
+    <p>Sign in to manage your store</p>
+    <input type="email" id="email" placeholder="Email address" onkeydown="if(event.key==='Enter')login()"/>
+    <input type="password" id="pwd" placeholder="Password" onkeydown="if(event.key==='Enter')login()"/>
+    <button onclick="login()">Sign In</button>
+    <div id="login-err" style="font-size:.75rem;color:#c0392b;margin-top:1rem;display:none">Invalid credentials</div>
+  </div>
+</div>
+
+<div id="admin">
+  <nav class="admin-nav">
+    <h1>Sterling Berry Admin</h1>
+    <button onclick="logout()">Sign Out</button>
+  </nav>
+  <div class="admin-body">
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('dashboard',this)">Dashboard</button>
+      <button class="tab" onclick="showTab('orders',this)">Orders</button>
+      <button class="tab" onclick="showTab('products',this)">Products</button>
+      <button class="tab" onclick="showTab('subscribers',this)">Subscribers</button>
+      <button class="tab" onclick="showTab('newsletter',this)">Newsletter</button>
+      <button class="tab" onclick="showTab('settings',this)">Settings</button>
+    </div>
+
+    <div id="panel-dashboard" class="panel active">
+      <div class="stat-grid">
+        <div class="stat"><div class="stat-num" id="s-orders">—</div><div class="stat-label">Orders (30d)</div></div>
+        <div class="stat"><div class="stat-num" id="s-revenue">—</div><div class="stat-label">Revenue (30d)</div></div>
+        <div class="stat"><div class="stat-num" id="s-subs">—</div><div class="stat-label">Subscribers</div></div>
+        <div class="stat"><div class="stat-num" id="s-nl">—</div><div class="stat-label">Newsletter</div></div>
+      </div>
+      <div class="card"><h3>Recent Orders</h3><div id="recent-orders"><p style="color:var(--muted);font-size:.8rem">Loading...</p></div></div>
+    </div>
+
+    <div id="panel-orders" class="panel">
+      <div class="card"><h3>All Orders</h3><div id="orders-table"><p style="color:var(--muted);font-size:.8rem">Loading orders from Supabase...</p></div></div>
+    </div>
+
+    <div id="panel-products" class="panel">
+      <div class="card">
+        <h3>Products</h3>
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:1rem">Products are managed in <code>db.js</code>. Edit that file to add, remove, or modify products.</p>
+        <div id="products-list"></div>
+      </div>
+    </div>
+
+    <div id="panel-subscribers" class="panel">
+      <div class="card"><h3>Email Subscribers</h3><div id="subs-table"><p style="color:var(--muted);font-size:.8rem">Loading...</p></div></div>
+    </div>
+
+    <div id="panel-newsletter" class="panel">
+      <div class="card">
+        <h3>Send Newsletter</h3>
+        <div class="form-row">
+          <div><label>Subject</label><input type="text" id="nl-subject" placeholder="Your newsletter subject"/></div>
+          <div><label>Preview Text</label><input type="text" id="nl-preview" placeholder="Short preview text..."/></div>
+        </div>
+        <div style="margin-bottom:1rem"><label>HTML Content</label><textarea id="nl-body" rows="8" placeholder="Paste newsletter HTML here..."></textarea></div>
+        <button class="btn btn-primary" onclick="sendNewsletter()">Send Newsletter</button>
+        <div class="status" id="nl-status">Newsletter sent successfully!</div>
+      </div>
+    </div>
+
+    <div id="panel-settings" class="panel">
+      <div class="card">
+        <h3>Site Settings</h3>
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:1.5rem">Configure environment variables in your Vercel project settings.</p>
+        <div style="font-size:.8rem;line-height:2">
+          <div><strong>STRIPE_SECRET_KEY</strong> — Stripe API key</div>
+          <div><strong>STRIPE_WEBHOOK_SECRET</strong> — Stripe webhook secret</div>
+          <div><strong>RESEND_API_KEY</strong> — Resend email API key</div>
+          <div><strong>FROM_EMAIL</strong> — Sender email address</div>
+          <div><strong>OWNER_EMAIL</strong> — Your email (receives order notifications)</div>
+          <div><strong>SITE_URL</strong> — Your live site URL</div>
+          <div><strong>SUPABASE_URL</strong> — Supabase project URL</div>
+          <div><strong>SUPABASE_SERVICE_KEY</strong> — Supabase service role key</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ADMIN_PASS = 'sterling2024!';
+
+function login(){
+  const email = document.getElementById('email').value;
+  const pwd = document.getElementById('pwd').value;
+  if(email.includes('@') && pwd === ADMIN_PASS){
+    document.getElementById('login').style.display='none';
+    document.getElementById('admin').style.display='block';
+    loadDashboard();
+  } else {
+    document.getElementById('login-err').style.display='block';
+  }
+}
+
+function logout(){
+  document.getElementById('login').style.display='flex';
+  document.getElementById('admin').style.display='none';
+}
+
+function showTab(id, el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+}
+
+async function loadDashboard(){
+  try {
+    const res = await fetch('/api/get-session');
+    const data = await res.json();
+    if(data.stats){
+      document.getElementById('s-orders').textContent = data.stats.orders || '0';
+      document.getElementById('s-revenue').textContent = '$'+((data.stats.revenue||0)/100).toFixed(0);
+      document.getElementById('s-subs').textContent = data.stats.subscribers || '0';
+    }
+  } catch(e) {
+    document.getElementById('s-orders').textContent = 'N/A';
+    document.getElementById('s-revenue').textContent = 'N/A';
+    document.getElementById('s-subs').textContent = 'N/A';
+    document.getElementById('s-nl').textContent = 'N/A';
+  }
+
+  // Show products from db.js if available
+  if(window.SBDb && window.SBDb.products){
+    document.getElementById('s-nl').textContent = window.SBDb.products.length+' teas';
+    const list = window.SBDb.products.map(p=>
+      `<div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(224,216,204,.5);font-size:.8rem">
+        <span>${p.emoji} ${p.name}</span><span style="color:var(--gold)">$${p.price.toFixed(2)}</span>
+      </div>`
+    ).join('');
+    document.getElementById('products-list').innerHTML = list;
+  }
+}
+
+async function sendNewsletter(){
+  const subject = document.getElementById('nl-subject').value;
+  const body = document.getElementById('nl-body').value;
+  if(!subject || !body){alert('Subject and content are required');return;}
+  try {
+    await fetch('/api/send-newsletter', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({subject, html:body})});
+    document.getElementById('nl-status').style.display='block';
+    setTimeout(()=>document.getElementById('nl-status').style.display='none', 3000);
+  } catch(e){ alert('Error sending newsletter: '+e.message); }
+}
+</script>
+<script src="db.js"></script>
+</body>
+</html>
