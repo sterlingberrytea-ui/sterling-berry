@@ -1,8 +1,3 @@
 {
-  "version": 2,
-  "functions": {
-    "api/abandoned-cart-check.js": {
-      "maxDuration": 60
-    }
-  }
+  "version": 2
 }
