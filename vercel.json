@@ -1,9 +1,14 @@
 {
   "version": 2,
   "functions": {
-    "api/abandoned-cart-check.js": { "maxDuration": 60 }
+    "api/abandoned-cart-check.js": {
+      "maxDuration": 60
+    }
   },
   "crons": [
-    { "path": "/api/abandoned-cart-check", "schedule": "0 * * * *" }
+    {
+      "path": "/api/abandoned-cart-check",
+      "schedule": "0 0 * * *"
+    }
   ]
 }
